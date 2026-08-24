@@ -1,0 +1,773 @@
+
+/* ============================================================
+   GLOBAL APP
+   ============================================================ */
+
+.app {
+  min-height: 100vh;
+  padding: 50px 20px;
+  background: #0f0f0f;
+  color: #ffffff;
+}
+
+.container {
+  width: 100%;
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.logo {
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -2px;
+}
+
+.header p {
+  margin-top: 10px;
+  opacity: 0.65;
+  font-size: 17px;
+}
+
+
+/* ============================================================
+   SEARCH SECTION
+   ============================================================ */
+
+.search-section {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.url-input {
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 16px 18px;
+
+  border-radius: 12px;
+
+  border: 1px solid #444;
+
+  background: #181818;
+
+  color: white;
+
+  font-size: 16px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+
+.url-input::placeholder {
+  color: #888;
+}
+
+.url-input:focus {
+  border-color: #777;
+  background: #1c1c1c;
+}
+
+.url-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* ============================================================
+   ANALYZE BUTTON
+   ============================================================ */
+
+.analyze-btn {
+  min-width: 120px;
+
+  padding: 0 20px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  color: #111;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.15s,
+    opacity 0.15s;
+}
+
+.analyze-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.analyze-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.analyze-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+/* ============================================================
+   VIDEO CARD
+   ============================================================ */
+
+.video-card {
+  margin-top: 35px;
+
+  display: grid;
+
+  grid-template-columns: 400px 1fr;
+
+  gap: 30px;
+
+  padding: 25px;
+
+  border-radius: 20px;
+
+  background: #181818;
+
+  border: 1px solid #303030;
+
+  box-shadow:
+    0 20px 50px
+    rgba(0, 0, 0, 0.35);
+}
+
+
+/* ============================================================
+   THUMBNAIL
+   ============================================================ */
+
+.thumbnail-wrapper {
+  width: 100%;
+}
+
+.thumbnail {
+  width: 100%;
+
+  aspect-ratio: 16 / 9;
+
+  object-fit: cover;
+
+  display: block;
+
+  border-radius: 14px;
+
+  background: #111;
+}
+
+
+/* ============================================================
+   VIDEO DETAILS
+   ============================================================ */
+
+.video-details {
+  min-width: 0;
+}
+
+.video-details h2 {
+  margin: 0 0 12px;
+
+  font-size: 22px;
+
+  line-height: 1.4;
+
+  word-break: break-word;
+}
+
+.channel {
+  margin: 0 0 25px;
+
+  opacity: 0.6;
+
+  font-size: 14px;
+}
+
+
+/* ============================================================
+   QUALITY SECTION
+   ============================================================ */
+
+.quality-section {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  margin-bottom: 18px;
+}
+
+.quality-section label {
+  font-size: 14px;
+
+  font-weight: 600;
+
+  opacity: 0.8;
+}
+
+.quality-section select {
+  width: 100%;
+
+  padding: 12px;
+
+  border-radius: 10px;
+
+  border: 1px solid #444;
+
+  background: #222;
+
+  color: white;
+
+  font-size: 15px;
+
+  outline: none;
+
+  cursor: pointer;
+
+  appearance: auto;
+}
+
+.quality-section select:focus {
+  border-color: #777;
+}
+
+.quality-section select:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+}
+
+
+/* ============================================================
+   DOWNLOAD BUTTONS
+   ============================================================ */
+
+.download-btn {
+  width: 100%;
+
+  padding: 14px;
+
+  margin-top: 10px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.15s,
+    opacity 0.15s,
+    background 0.15s;
+}
+
+.download-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.download-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.download-btn:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+
+/* ============================================================
+   VIDEO BUTTON
+   ============================================================ */
+
+.video-btn {
+  background: #ffffff;
+
+  color: #111;
+}
+
+.video-btn:hover:not(:disabled) {
+  background: #eeeeee;
+}
+
+
+/* ============================================================
+   AUDIO BUTTON
+   ============================================================ */
+
+.audio-btn {
+  background: #2b2b2b;
+
+  color: white;
+
+  border: 1px solid #444;
+}
+
+.audio-btn:hover:not(:disabled) {
+  background: #353535;
+}
+
+
+/* ============================================================
+   THUMBNAIL BUTTON
+   ============================================================ */
+
+.thumbnail-btn {
+  background: #2b2b2b;
+
+  color: white;
+
+  border: 1px solid #444;
+}
+
+.thumbnail-btn:hover:not(:disabled) {
+  background: #353535;
+}
+
+
+/* ============================================================
+   CLIP SECTION
+   ============================================================ */
+
+.clip-section {
+  margin-top: 25px;
+
+  padding-top: 22px;
+
+  border-top: 1px solid #303030;
+}
+
+.clip-title {
+  margin: 0 0 15px;
+
+  font-size: 17px;
+
+  font-weight: 700;
+}
+
+.clip-description {
+  margin: 0 0 18px;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+
+  opacity: 0.6;
+}
+
+
+/* ============================================================
+   CLIP TIME INPUTS
+   ============================================================ */
+
+.clip-time-row {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 12px;
+
+  margin-bottom: 15px;
+}
+
+.clip-time-field {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.clip-time-field label {
+  font-size: 13px;
+
+  font-weight: 600;
+
+  opacity: 0.8;
+}
+
+.clip-time-input {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 12px;
+
+  border-radius: 10px;
+
+  border: 1px solid #444;
+
+  background: #222;
+
+  color: white;
+
+  font-size: 15px;
+
+  outline: none;
+}
+
+.clip-time-input::placeholder {
+  color: #777;
+}
+
+.clip-time-input:focus {
+  border-color: #777;
+
+  background: #272727;
+}
+
+.clip-time-input:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+}
+
+
+/* ============================================================
+   CLIP BUTTON
+   ============================================================ */
+
+.clip-btn {
+  background: #2b2b2b;
+
+  color: white;
+
+  border: 1px solid #444;
+}
+
+.clip-btn:hover:not(:disabled) {
+  background: #353535;
+}
+
+
+/* ============================================================
+   CANCEL BUTTON
+   ============================================================ */
+
+.cancel-btn {
+  width: 100%;
+
+  padding: 14px;
+
+  margin-top: 10px;
+
+  border: 1px solid #6b3333;
+
+  border-radius: 10px;
+
+  background: #2b2b2b;
+
+  color: #ffb0b0;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.15s,
+    background 0.15s,
+    border-color 0.15s;
+}
+
+.cancel-btn:hover {
+  transform: translateY(-1px);
+
+  background: #3a2020;
+
+  border-color: #a04444;
+}
+
+.cancel-btn:active {
+  transform: translateY(0);
+}
+
+
+/* ============================================================
+   PROGRESS SECTION
+   ============================================================ */
+
+.progress-section {
+  margin-top: 25px;
+
+  padding: 15px;
+
+  border-radius: 12px;
+
+  background: #202020;
+
+  border: 1px solid #303030;
+}
+
+.progress-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 8px;
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+.progress-bar {
+  width: 100%;
+
+  height: 10px;
+
+  background: #303030;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+
+  background: #ffffff;
+
+  border-radius: 20px;
+
+  transition:
+    width 0.5s ease;
+}
+
+.progress-section p {
+  margin: 8px 0 0;
+
+  font-size: 13px;
+
+  opacity: 0.6;
+}
+
+
+/* ============================================================
+   MESSAGE
+   ============================================================ */
+
+.message {
+  margin-top: 25px;
+
+  padding: 14px;
+
+  text-align: center;
+
+  border-radius: 10px;
+
+  background: #181818;
+
+  border: 1px solid #303030;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+
+  word-break: break-word;
+}
+
+
+/* ============================================================
+   SUCCESS MESSAGE
+   ============================================================ */
+
+.message-success {
+  border-color: #315c3b;
+
+  color: #b8e8c2;
+}
+
+
+/* ============================================================
+   ERROR MESSAGE
+   ============================================================ */
+
+.message-error {
+  border-color: #6b3333;
+
+  color: #ffb0b0;
+
+  background: #211616;
+}
+
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3a3a3a;
+
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #505050;
+}
+
+
+/* ============================================================
+   RESPONSIVE — TABLET
+   ============================================================ */
+
+@media (max-width: 850px) {
+
+  .video-card {
+    grid-template-columns: 330px 1fr;
+
+    gap: 22px;
+
+    padding: 20px;
+  }
+
+  .video-details h2 {
+    font-size: 20px;
+  }
+}
+
+
+/* ============================================================
+   RESPONSIVE — MOBILE
+   ============================================================ */
+
+@media (max-width: 750px) {
+
+  .app {
+    padding: 30px 15px;
+  }
+
+  .container {
+    max-width: 100%;
+  }
+
+  .logo {
+    font-size: 40px;
+  }
+
+  .header {
+    margin-bottom: 30px;
+  }
+
+  .header p {
+    font-size: 15px;
+  }
+
+  .search-section {
+    flex-direction: column;
+  }
+
+  .url-input {
+    width: 100%;
+
+    box-sizing: border-box;
+  }
+
+  .analyze-btn {
+    width: 100%;
+
+    padding: 15px;
+  }
+
+  .video-card {
+    grid-template-columns: 1fr;
+
+    padding: 18px;
+
+    gap: 20px;
+  }
+
+  .thumbnail-wrapper {
+    width: 100%;
+  }
+
+  .video-details h2 {
+    font-size: 20px;
+  }
+
+  .clip-time-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ============================================================
+   SMALL MOBILE
+   ============================================================ */
+
+@media (max-width: 450px) {
+
+  .app {
+    padding: 20px 12px;
+  }
+
+  .logo {
+    font-size: 34px;
+
+    letter-spacing: -1px;
+  }
+
+  .header p {
+    font-size: 14px;
+  }
+
+  .video-card {
+    padding: 14px;
+
+    border-radius: 16px;
+  }
+
+  .thumbnail {
+    border-radius: 10px;
+  }
+
+  .video-details h2 {
+    font-size: 18px;
+  }
+
+  .download-btn,
+  .cancel-btn {
+    padding: 13px;
+
+    font-size: 14px;
+  }
+}
