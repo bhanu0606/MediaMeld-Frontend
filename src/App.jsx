@@ -1,1229 +1,1339 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
+import translations from "./i18n/translations";
+
+const API_BASE = "http://localhost:8080/api/media";
 
 function App() {
   // ============================================================
-  // URL / VIDEO INFORMATION
+  // LANGUAGE
+  // ============================================================
+
+  const [language, setLanguage] = useState(
+    localStorage.getItem("mediameld-language") || "en"
+  );
+
+  const t = translations[language] || translations.en;
+
+  // ============================================================
+  // THEME
+  // ============================================================
+
+  const [theme, setTheme] = useState(
+    localStorage.getItem("mediameld-theme") || "dark"
+  );
+
+  // ============================================================
+  // COMMON
   // ============================================================
 
   const [url, setUrl] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+
+  // ============================================================
+  // VIDEO ANALYSIS
+  // ============================================================
+
   const [videoInfo, setVideoInfo] = useState(null);
-
-  // Quality comes directly from backend
   const [quality, setQuality] = useState(720);
-
-  // ============================================================
-  // ANALYZE
-  // ============================================================
-
-  const [analyzing, setAnalyzing] = useState(false);
 
   // ============================================================
   // VIDEO DOWNLOAD
   // ============================================================
 
-  const [downloadingVideo, setDownloadingVideo] =
-    useState(false);
-
-  const [videoProgress, setVideoProgress] =
-    useState(0);
+  const [videoProgress, setVideoProgress] = useState(0);
+  const [videoSpeed, setVideoSpeed] = useState("0 B/s");
+  const [videoEta, setVideoEta] = useState("--:--");
+  const [videoStatus, setVideoStatus] = useState("IDLE");
 
   // ============================================================
   // AUDIO DOWNLOAD
   // ============================================================
 
-  const [downloadingAudio, setDownloadingAudio] =
-    useState(false);
+  const [audioProgress, setAudioProgress] = useState(0);
+  const [audioSpeed, setAudioSpeed] = useState("0 B/s");
+  const [audioEta, setAudioEta] = useState("--:--");
+  const [audioStatus, setAudioStatus] = useState("IDLE");
 
-  const [audioProgress, setAudioProgress] =
+  // ============================================================
+  // VIDEO CLIP
+  // ============================================================
+
+  const [startTime, setStartTime] = useState("00:00");
+  const [endTime, setEndTime] = useState("00:30");
+
+  const [clipProgress, setClipProgress] = useState(0);
+  const [clipSpeed, setClipSpeed] = useState("0 B/s");
+  const [clipEta, setClipEta] = useState("--:--");
+  const [clipStatus, setClipStatus] = useState("IDLE");
+
+  // ============================================================
+  // AUDIO CLIP
+  // ============================================================
+
+  const [audioClipStartTime, setAudioClipStartTime] =
+    useState("00:00");
+
+  const [audioClipEndTime, setAudioClipEndTime] =
+    useState("00:30");
+
+  const [audioClipProgress, setAudioClipProgress] =
     useState(0);
 
+  const [audioClipSpeed, setAudioClipSpeed] =
+    useState("0 B/s");
+
+  const [audioClipEta, setAudioClipEta] =
+    useState("--:--");
+
+  const [audioClipStatus, setAudioClipStatus] =
+    useState("IDLE");
+
   // ============================================================
-  // THUMBNAIL DOWNLOAD
+  // THUMBNAIL
   // ============================================================
 
-  const [downloadingThumbnail, setDownloadingThumbnail] =
+  const [thumbnailLoading, setThumbnailLoading] =
     useState(false);
 
   // ============================================================
-  // CLIP DOWNLOAD
+  // POLLING REFS
   // ============================================================
 
-  const [downloadingClip, setDownloadingClip] =
-    useState(false);
-
-  const [clipProgress, setClipProgress] =
-    useState(0);
-
-  const [startTime, setStartTime] =
-    useState("");
-
-  const [endTime, setEndTime] =
-    useState("");
+  const videoPollingRef = useRef(null);
+  const audioPollingRef = useRef(null);
+  const clipPollingRef = useRef(null);
+  const audioClipPollingRef = useRef(null);
 
   // ============================================================
-  // MESSAGE
+  // POLLING START TIME REFS
   // ============================================================
 
-  const [message, setMessage] =
-    useState("");
-
-  const [messageType, setMessageType] =
-    useState("");
+  const videoPollingStartRef = useRef(null);
+  const audioPollingStartRef = useRef(null);
+  const clipPollingStartRef = useRef(null);
+  const audioClipPollingStartRef = useRef(null);
 
   // ============================================================
-  // ANY DOWNLOAD RUNNING
+  // SAVE LANGUAGE
   // ============================================================
 
-  const downloading =
-    downloadingVideo ||
-    downloadingAudio ||
-    downloadingThumbnail ||
-    downloadingClip;
+  useEffect(() => {
+    localStorage.setItem(
+      "mediameld-language",
+      language
+    );
+  }, [language]);
+
+  // ============================================================
+  // APPLY + SAVE THEME
+  // ============================================================
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+
+    localStorage.setItem(
+      "mediameld-theme",
+      theme
+    );
+  }, [theme]);
+
+  // ============================================================
+  // CLEANUP
+  // ============================================================
+
+  useEffect(() => {
+    return () => {
+      clearInterval(videoPollingRef.current);
+      clearInterval(audioPollingRef.current);
+      clearInterval(clipPollingRef.current);
+      clearInterval(audioClipPollingRef.current);
+    };
+  }, []);
 
   // ============================================================
   // ANALYZE VIDEO
   // ============================================================
 
-  const handleAnalyze = async () => {
+  const analyzeVideo = async () => {
     if (!url.trim()) {
-      setMessage("Please enter a YouTube URL");
-      setMessageType("error");
+      setError(t.pleaseEnterUrl);
       return;
     }
 
-    setAnalyzing(true);
-
+    setLoading(true);
+    setError("");
     setMessage("");
-    setMessageType("");
-
     setVideoInfo(null);
-
-    setVideoProgress(0);
-    setAudioProgress(0);
-    setClipProgress(0);
 
     try {
       const response = await fetch(
-        "http://localhost:8080/api/media/analyze",
+        `${API_BASE}/analyze`,
         {
           method: "POST",
-
           headers: {
             "Content-Type": "application/json",
           },
-
           body: JSON.stringify({
             url: url.trim(),
           }),
+          cache: "no-store",
         }
       );
 
       if (!response.ok) {
-        const errorText =
-          await response.text();
+        const text = await response.text();
 
         throw new Error(
-          errorText || "Analyze failed"
+          text || "Unable to analyze video"
         );
       }
 
-      const data =
-        await response.json();
-
-      console.log(
-        "Video information:",
-        data
-      );
+      const data = await response.json();
 
       setVideoInfo(data);
 
-      // ========================================================
-      // USE QUALITY FROM BACKEND
-      // ========================================================
-
       if (
-        Array.isArray(data.qualities) &&
+        data.qualities &&
         data.qualities.length > 0
       ) {
-        const qualities =
-          data.qualities
-            .map(Number)
-            .filter(
-              (q) =>
-                Number.isFinite(q) &&
-                q > 0
-            );
+        const sortedQualities =
+          [...data.qualities].sort(
+            (a, b) => a - b
+          );
 
-        if (qualities.length > 0) {
-          if (
-            qualities.includes(
-              Number(quality)
-            )
-          ) {
-            setQuality(
-              Number(quality)
-            );
-          } else {
-            setQuality(
-              Math.max(...qualities)
-            );
-          }
-        }
+        setQuality(
+          sortedQualities.includes(720)
+            ? 720
+            : sortedQualities[
+                sortedQualities.length - 1
+              ]
+        );
       }
 
-      setMessage(
-        "Video analyzed successfully"
-      );
-
-      setMessageType("success");
-
-    } catch (error) {
+      setMessage(t.videoAnalyzed);
+    } catch (err) {
       console.error(
         "Analyze error:",
-        error
+        err
       );
 
-      setMessage(
-        error.message ||
+      setError(
+        err.message ||
           "Unable to analyze video"
       );
-
-      setMessageType("error");
-
     } finally {
-      setAnalyzing(false);
+      setLoading(false);
     }
   };
 
   // ============================================================
-  // DOWNLOAD VIDEO
+  // VIDEO PROGRESS POLLING
   // ============================================================
 
-  const handleDownloadVideo = async () => {
+  const startVideoProgressPolling = () => {
+    clearInterval(videoPollingRef.current);
+    videoPollingStartRef.current = Date.now();
+    videoPollingRef.current = setInterval(async () => {
+      try {
+        const response = await fetch(`${API_BASE}/download/status?t=${Date.now()}`, { cache: "no-store" });
+        if (!response.ok) throw new Error(`Video status endpoint returned ${response.status}`);
+        const data = await response.json();
+        setVideoProgress(Number(data.progress) || 0);
+        setVideoSpeed(data.speed || "0 B/s");
+        setVideoEta(data.eta || "--:--");
+        if (data.error) { clearInterval(videoPollingRef.current); setError(data.error); setVideoStatus("ERROR"); return; }
+        if (data.completed) {
+          clearInterval(videoPollingRef.current);
+          setVideoProgress(100); setVideoSpeed(t.completed); setVideoEta("00:00"); setVideoStatus("COMPLETED");
+          await downloadCompletedVideo(); return;
+        }
+        setVideoStatus(data.downloading ? "DOWNLOADING" : "IDLE");
+        if (Date.now() - videoPollingStartRef.current > 15 * 60 * 1000) {
+          clearInterval(videoPollingRef.current); setError(t.videoDownloadStuck); setVideoStatus("ERROR");
+        }
+      } catch (err) { console.error("Video progress error:", err); }
+    }, 500);
+  };
+  // ============================================================
+  // START VIDEO DOWNLOAD
+  // ============================================================
+
+  const startVideoDownload = async () => {
     if (!url.trim()) {
-      setMessage(
-        "Please enter a YouTube URL"
-      );
-
-      setMessageType("error");
-
+      setError(t.pleaseEnterUrl);
       return;
     }
 
-    if (!quality) {
-      setMessage(
-        "Please select a video quality"
+    if (!quality || quality <= 0) {
+      setError(
+        t.pleaseSelectQuality
       );
-
-      setMessageType("error");
-
       return;
     }
 
-    setDownloadingVideo(true);
-
-    setVideoProgress(0);
-
-    setMessage(
-      "Starting video download..."
+    clearInterval(
+      videoPollingRef.current
     );
 
-    setMessageType("");
+    setError("");
+    setMessage("");
+
+    setVideoProgress(0);
+    setVideoSpeed("0 B/s");
+    setVideoEta("--:--");
+    setVideoStatus("STARTING");
 
     try {
-      // ========================================================
-      // START VIDEO DOWNLOAD
-      // ========================================================
+      const response = await fetch(
+        `${API_BASE}/download`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+          body: JSON.stringify({
+            url: url.trim(),
+            quality: Number(quality),
+          }),
+          cache: "no-store",
+        }
+      );
 
-      const startResponse =
-        await fetch(
-          "http://localhost:8080/api/media/download/start",
-          {
-            method: "POST",
-
-            headers: {
-              "Content-Type":
-                "application/json",
-            },
-
-            body: JSON.stringify({
-              url: url.trim(),
-              quality: Number(quality),
-            }),
-          }
-        );
-
-      if (!startResponse.ok) {
-        const errorText =
-          await startResponse.text();
+      if (!response.ok) {
+        const text =
+          await response.text();
 
         throw new Error(
-          errorText ||
+          text ||
             "Could not start video download"
         );
       }
 
-      // ========================================================
-      // MONITOR VIDEO
-      // ========================================================
-
-      let completed = false;
-
-      while (!completed) {
-        await new Promise(
-          (resolve) =>
-            setTimeout(resolve, 1000)
-        );
-
-        // ======================================================
-        // VIDEO PROGRESS
-        // ======================================================
-
-        const progressResponse =
-          await fetch(
-            "http://localhost:8080/api/media/progress"
-          );
-
-        if (!progressResponse.ok) {
-          throw new Error(
-            "Could not get video progress"
-          );
-        }
-
-        const currentProgress =
-          await progressResponse.json();
-
-        const rounded =
-          Math.round(
-            Number(currentProgress)
-          );
-
-        setVideoProgress(
-          Math.min(
-            100,
-            Math.max(0, rounded)
-          )
-        );
-
-        // ======================================================
-        // VIDEO STATUS
-        // ======================================================
-
-        const statusResponse =
-          await fetch(
-            "http://localhost:8080/api/media/status"
-          );
-
-        if (!statusResponse.ok) {
-          throw new Error(
-            "Could not get video status"
-          );
-        }
-
-        const status =
-          await statusResponse.text();
-
-        console.log(
-          "Video:",
-          rounded + "%",
-          status
-        );
-
-        // ======================================================
-        // COMPLETED
-        // ======================================================
-
-        if (status === "COMPLETED") {
-          completed = true;
-
-          setVideoProgress(100);
-
-          setMessage(
-            "Video download completed!"
-          );
-
-          setMessageType("success");
-        }
-
-        // ======================================================
-        // ERROR
-        // ======================================================
-
-        if (
-          status.startsWith("ERROR:")
-        ) {
-          const actualError =
-            status
-              .substring(
-                "ERROR:".length
-              )
-              .trim();
-
-          throw new Error(
-            actualError ||
-              "Video download failed"
-          );
-        }
-
-        // ======================================================
-        // CANCELLED
-        // ======================================================
-
-        if (
-          status === "IDLE" &&
-          rounded === 0
-        ) {
-          completed = true;
-
-          throw new Error(
-            "Video download cancelled"
-          );
-        }
-      }
-
-      // ========================================================
-      // GET COMPLETED VIDEO
-      // ========================================================
-
-      const fileResponse =
-        await fetch(
-          "http://localhost:8080/api/media/download/file"
-        );
-
-      if (!fileResponse.ok) {
-        throw new Error(
-          "Could not get completed video file"
-        );
-      }
-
-      const blob =
-        await fileResponse.blob();
-
-      // ========================================================
-      // DOWNLOAD TO LAPTOP
-      // ========================================================
-
-      const downloadUrl =
-        window.URL.createObjectURL(
-          blob
-        );
-
-      const link =
-        document.createElement("a");
-
-      link.href = downloadUrl;
-
-      link.download =
-        videoInfo?.title
-          ? `${videoInfo.title}.mp4`
-          : "MediaMeld-video.mp4";
-
-      document.body.appendChild(link);
-
-      link.click();
-
-      link.remove();
-
-      window.URL.revokeObjectURL(
-        downloadUrl
-      );
+      await response.text();
 
       setMessage(
-        "Video downloaded successfully!"
+        t.videoDownloadStarted
       );
 
-      setMessageType("success");
+      setVideoStatus(
+        "DOWNLOADING"
+      );
 
-    } catch (error) {
+      startVideoProgressPolling();
+    } catch (err) {
       console.error(
-        "Video download error:",
-        error
+        "Start video download error:",
+        err
       );
 
-      setMessage(
-        error.message ||
-          "Video download failed"
+      setError(
+        err.message ||
+          "Could not start video download"
       );
 
-      setMessageType("error");
-
-    } finally {
-      setDownloadingVideo(false);
+      setVideoStatus("IDLE");
     }
   };
+
+  // ============================================================
+  // DOWNLOAD COMPLETED VIDEO
+  // ============================================================
+
+  const downloadCompletedVideo =
+    async () => {
+      try {
+        const response = await fetch(
+          `${API_BASE}/download/file?t=${Date.now()}`,
+          {
+            cache: "no-store",
+          }
+        );
+
+        if (!response.ok) {
+          const text =
+            await response.text();
+
+          throw new Error(
+            text ||
+              "Could not retrieve downloaded video"
+          );
+        }
+
+        const blob =
+          await response.blob();
+
+        const downloadUrl =
+          window.URL.createObjectURL(
+            blob
+          );
+
+        const link =
+          document.createElement("a");
+
+        link.href = downloadUrl;
+
+        link.download =
+          videoInfo?.title
+            ? `${videoInfo.title}.mp4`
+            : "MediaMeld-video.mp4";
+
+        document.body.appendChild(
+          link
+        );
+
+        link.click();
+
+        link.remove();
+
+        setTimeout(() => {
+          window.URL.revokeObjectURL(
+            downloadUrl
+          );
+        }, 1000);
+
+        setMessage(
+          t.videoDownloadedSuccessfully
+        );
+
+        setVideoStatus(
+          "COMPLETED"
+        );
+      } catch (err) {
+        console.error(
+          "Completed video error:",
+          err
+        );
+
+        setError(
+          err.message ||
+            "Could not download video"
+        );
+      }
+    };
 
   // ============================================================
   // CANCEL VIDEO
   // ============================================================
 
-  const handleCancelVideo = async () => {
-    try {
-      const response =
+  const cancelVideoDownload =
+    async () => {
+      try {
+        clearInterval(
+          videoPollingRef.current
+        );
+
         await fetch(
-          "http://localhost:8080/api/media/download/cancel",
+          `${API_BASE}/download/cancel`,
           {
             method: "POST",
+            cache: "no-store",
           }
         );
 
-      if (!response.ok) {
-        throw new Error(
+        setVideoProgress(0);
+        setVideoSpeed("0 B/s");
+        setVideoEta("--:--");
+        setVideoStatus("IDLE");
+
+        setMessage(
+          t.videoDownloadCancelled
+        );
+      } catch (err) {
+        console.error(
+          "Cancel video error:",
+          err
+        );
+
+        setError(
           "Could not cancel video download"
         );
       }
+    };
 
-      setDownloadingVideo(false);
+  // ============================================================
+  // AUDIO PROGRESS POLLING
+  // ============================================================
 
-      setVideoProgress(0);
-
-      setMessage(
-        "Video download cancelled"
-      );
-
-      setMessageType("");
-
-    } catch (error) {
-      console.error(
-        "Cancel video error:",
-        error
-      );
-
-      setMessage(
-        error.message ||
-          "Could not cancel video download"
-      );
-
-      setMessageType("error");
-    }
+  const startAudioProgressPolling = () => {
+    clearInterval(audioPollingRef.current);
+    audioPollingStartRef.current = Date.now();
+    audioPollingRef.current = setInterval(async () => {
+      try {
+        const response = await fetch(`${API_BASE}/audio/status?t=${Date.now()}`, { cache: "no-store" });
+        if (!response.ok) throw new Error(`Audio status endpoint returned ${response.status}`);
+        const data = await response.json();
+        setAudioProgress(Number(data.progress) || 0);
+        setAudioSpeed(data.speed || "0 B/s"); setAudioEta(data.eta || "--:--");
+        if (data.error) { clearInterval(audioPollingRef.current); setError(data.error); setAudioStatus("ERROR"); return; }
+        if (data.completed) {
+          clearInterval(audioPollingRef.current);
+          setAudioProgress(100); setAudioSpeed(t.completed); setAudioEta("00:00"); setAudioStatus("COMPLETED");
+          await downloadCompletedAudio(); return;
+        }
+        setAudioStatus(data.downloading ? "DOWNLOADING" : "IDLE");
+        if (Date.now() - audioPollingStartRef.current > 15 * 60 * 1000) {
+          clearInterval(audioPollingRef.current); setError(t.audioDownloadStuck); setAudioStatus("ERROR");
+        }
+      } catch (err) { console.error("Audio progress error:", err); }
+    }, 500);
   };
-
   // ============================================================
-  // DOWNLOAD AUDIO
+  // START AUDIO DOWNLOAD
   // ============================================================
 
-  const handleDownloadAudio = async () => {
-    if (!url.trim()) {
-      setMessage(
-        "Please enter a YouTube URL"
+  const startAudioDownload =
+    async () => {
+      if (!url.trim()) {
+        setError(
+          t.pleaseEnterUrl
+        );
+        return;
+      }
+
+      clearInterval(
+        audioPollingRef.current
       );
 
-      setMessageType("error");
+      setError("");
+      setMessage("");
 
-      return;
-    }
+      setAudioProgress(0);
+      setAudioSpeed("0 B/s");
+      setAudioEta("--:--");
+      setAudioStatus("STARTING");
 
-    setDownloadingAudio(true);
-
-    setAudioProgress(0);
-
-    setMessage(
-      "Starting best quality audio download..."
-    );
-
-    setMessageType("");
-
-    try {
-      // ========================================================
-      // START AUDIO DOWNLOAD
-      // ========================================================
-
-      const startResponse =
-        await fetch(
-          "http://localhost:8080/api/media/audio/start",
+      try {
+        const response = await fetch(
+          `${API_BASE}/audio/download`,
           {
             method: "POST",
-
             headers: {
               "Content-Type":
                 "application/json",
             },
-
             body: JSON.stringify({
               url: url.trim(),
             }),
+            cache: "no-store",
           }
         );
 
-      if (!startResponse.ok) {
-        const errorText =
-          await startResponse.text();
+        if (!response.ok) {
+          const text =
+            await response.text();
 
-        throw new Error(
-          errorText ||
+          throw new Error(
+            text ||
+              "Could not start audio download"
+          );
+        }
+
+        await response.text();
+
+        setMessage(
+          t.audioDownloadStarted
+        );
+
+        setAudioStatus(
+          "DOWNLOADING"
+        );
+
+        startAudioProgressPolling();
+      } catch (err) {
+        console.error(
+          "Start audio error:",
+          err
+        );
+
+        setError(
+          err.message ||
             "Could not start audio download"
         );
+
+        setAudioStatus("IDLE");
       }
+    };
 
-      // ========================================================
-      // MONITOR AUDIO
-      // ========================================================
+  // ============================================================
+  // DOWNLOAD COMPLETED AUDIO
+  // ============================================================
 
-      let completed = false;
-
-      while (!completed) {
-        await new Promise(
-          (resolve) =>
-            setTimeout(resolve, 1000)
+  const downloadCompletedAudio =
+    async () => {
+      try {
+        const response = await fetch(
+          `${API_BASE}/audio/file?t=${Date.now()}`,
+          {
+            cache: "no-store",
+          }
         );
 
-        // ======================================================
-        // AUDIO PROGRESS
-        // ======================================================
+        if (!response.ok) {
+          const text =
+            await response.text();
 
-        const progressResponse =
-          await fetch(
-            "http://localhost:8080/api/media/audio/progress"
-          );
-
-        if (!progressResponse.ok) {
           throw new Error(
-            "Could not get audio progress"
+            text ||
+              "Could not retrieve downloaded audio"
           );
         }
 
-        const currentProgress =
-          await progressResponse.json();
+        const blob =
+          await response.blob();
 
-        const rounded =
-          Math.round(
-            Number(currentProgress)
+        const downloadUrl =
+          window.URL.createObjectURL(
+            blob
           );
 
-        setAudioProgress(
-          Math.min(
-            100,
-            Math.max(0, rounded)
-          )
+        const link =
+          document.createElement("a");
+
+        link.href = downloadUrl;
+
+        link.download =
+          videoInfo?.title
+            ? `${videoInfo.title}.m4a`
+            : "MediaMeld-audio.m4a";
+
+        document.body.appendChild(
+          link
         );
 
-        // ======================================================
-        // AUDIO STATUS
-        // ======================================================
+        link.click();
 
-        const statusResponse =
-          await fetch(
-            "http://localhost:8080/api/media/audio/status"
+        link.remove();
+
+        setTimeout(() => {
+          window.URL.revokeObjectURL(
+            downloadUrl
           );
+        }, 1000);
 
-        if (!statusResponse.ok) {
-          throw new Error(
-            "Could not get audio status"
-          );
-        }
-
-        const status =
-          await statusResponse.text();
-
-        console.log(
-          "Audio:",
-          rounded + "%",
-          status
+        setMessage(
+          t.audioDownloadedSuccessfully
         );
 
-        // ======================================================
-        // COMPLETED
-        // ======================================================
-
-        if (status === "COMPLETED") {
-          completed = true;
-
-          setAudioProgress(100);
-
-          setMessage(
-            "Best quality audio download completed!"
-          );
-
-          setMessageType("success");
-        }
-
-        // ======================================================
-        // ERROR
-        // ======================================================
-
-        if (
-          status.startsWith("ERROR:")
-        ) {
-          const actualError =
-            status
-              .substring(
-                "ERROR:".length
-              )
-              .trim();
-
-          throw new Error(
-            actualError ||
-              "Audio download failed"
-          );
-        }
-
-        // ======================================================
-        // CANCELLED
-        // ======================================================
-
-        if (
-          status === "IDLE" &&
-          rounded === 0
-        ) {
-          completed = true;
-
-          throw new Error(
-            "Audio download cancelled"
-          );
-        }
-      }
-
-      // ========================================================
-      // GET COMPLETED AUDIO
-      // ========================================================
-
-      const fileResponse =
-        await fetch(
-          "http://localhost:8080/api/media/audio/file"
+        setAudioStatus(
+          "COMPLETED"
+        );
+      } catch (err) {
+        console.error(
+          "Completed audio error:",
+          err
         );
 
-      if (!fileResponse.ok) {
-        throw new Error(
-          "Could not get completed audio file"
+        setError(
+          err.message ||
+            "Could not download audio"
         );
       }
-
-      const blob =
-        await fileResponse.blob();
-
-      // ========================================================
-      // DOWNLOAD TO LAPTOP
-      // ========================================================
-
-      const downloadUrl =
-        window.URL.createObjectURL(
-          blob
-        );
-
-      const link =
-        document.createElement("a");
-
-      link.href = downloadUrl;
-
-      link.download =
-        videoInfo?.title
-          ? `${videoInfo.title}.m4a`
-          : "MediaMeld-audio.m4a";
-
-      document.body.appendChild(link);
-
-      link.click();
-
-      link.remove();
-
-      window.URL.revokeObjectURL(
-        downloadUrl
-      );
-
-      setMessage(
-        "Best quality audio downloaded successfully!"
-      );
-
-      setMessageType("success");
-
-    } catch (error) {
-      console.error(
-        "Audio download error:",
-        error
-      );
-
-      setMessage(
-        error.message ||
-          "Audio download failed"
-      );
-
-      setMessageType("error");
-
-    } finally {
-      setDownloadingAudio(false);
-    }
-  };
+    };
 
   // ============================================================
   // CANCEL AUDIO
   // ============================================================
 
-  const handleCancelAudio = async () => {
-    try {
-      const response =
+  const cancelAudioDownload =
+    async () => {
+      try {
+        clearInterval(
+          audioPollingRef.current
+        );
+
         await fetch(
-          "http://localhost:8080/api/media/audio/cancel",
+          `${API_BASE}/audio/cancel`,
           {
             method: "POST",
+            cache: "no-store",
           }
         );
 
-      if (!response.ok) {
-        throw new Error(
+        setAudioProgress(0);
+        setAudioSpeed("0 B/s");
+        setAudioEta("--:--");
+        setAudioStatus("IDLE");
+
+        setMessage(
+          t.audioDownloadCancelled
+        );
+      } catch (err) {
+        console.error(
+          "Cancel audio error:",
+          err
+        );
+
+        setError(
           "Could not cancel audio download"
         );
       }
-
-      setDownloadingAudio(false);
-
-      setAudioProgress(0);
-
-      setMessage(
-        "Audio download cancelled"
-      );
-
-      setMessageType("");
-
-    } catch (error) {
-      console.error(
-        "Cancel audio error:",
-        error
-      );
-
-      setMessage(
-        error.message ||
-          "Could not cancel audio download"
-      );
-
-      setMessageType("error");
-    }
-  };
+    };
 
   // ============================================================
-  // DOWNLOAD THUMBNAIL
+  // THUMBNAIL DOWNLOAD
   // ============================================================
 
-  const handleDownloadThumbnail = async () => {
-    if (!videoInfo?.thumbnail) {
-      setMessage(
-        "Analyze the video first"
-      );
-
-      setMessageType("error");
-
-      return;
-    }
-
-    setDownloadingThumbnail(true);
-
-    setMessage(
-      "Downloading thumbnail..."
-    );
-
-    setMessageType("");
-
-    try {
-      // ========================================================
-      // SEND THUMBNAIL URL TO SPRING BOOT
-      // ========================================================
-
-      const response =
-        await fetch(
-          `http://localhost:8080/api/media/thumbnail?url=${encodeURIComponent(
-            videoInfo.thumbnail
-          )}`
+  const downloadThumbnail =
+    async () => {
+      if (!url.trim()) {
+        setError(
+          t.pleaseEnterUrl
         );
-
-      if (!response.ok) {
-        const errorText =
-          await response.text();
-
-        throw new Error(
-          errorText ||
-            "Thumbnail download failed"
-        );
+        return;
       }
 
-      // ========================================================
-      // RECEIVE IMAGE AS BLOB
-      // ========================================================
-
-      const blob =
-        await response.blob();
-
-      if (!blob || blob.size === 0) {
-        throw new Error(
-          "Thumbnail file is empty"
+      if (!videoInfo?.thumbnail) {
+        setError(
+          t.thumbnailNotAvailable
         );
+        return;
       }
 
-      // ========================================================
-      // CREATE LOCAL DOWNLOAD
-      // ========================================================
+      setThumbnailLoading(true);
+      setError("");
+      setMessage("");
 
-      const downloadUrl =
-        window.URL.createObjectURL(
-          blob
-        );
-
-      const link =
-        document.createElement("a");
-
-      link.href = downloadUrl;
-
-      link.download =
-        videoInfo?.title
-          ? `${videoInfo.title}-thumbnail.webp`
-          : "MediaMeld-thumbnail.webp";
-
-      document.body.appendChild(link);
-
-      link.click();
-
-      link.remove();
-
-      window.URL.revokeObjectURL(
-        downloadUrl
-      );
-
-      setMessage(
-        "Thumbnail downloaded successfully!"
-      );
-
-      setMessageType("success");
-
-    } catch (error) {
-      console.error(
-        "Thumbnail download error:",
-        error
-      );
-
-      setMessage(
-        error.message ||
-          "Thumbnail download failed"
-      );
-
-      setMessageType("error");
-
-    } finally {
-      setDownloadingThumbnail(false);
-    }
-  };
-
-  // ============================================================
-  // DOWNLOAD CLIP
-  // ============================================================
-
-  const handleDownloadClip = async () => {
-    if (!url.trim()) {
-      setMessage(
-        "Please enter a YouTube URL"
-      );
-
-      setMessageType("error");
-
-      return;
-    }
-
-    if (
-      !startTime.trim() ||
-      !endTime.trim()
-    ) {
-      setMessage(
-        "Please enter both start time and end time"
-      );
-
-      setMessageType("error");
-
-      return;
-    }
-
-    if (!quality) {
-      setMessage(
-        "Please select a video quality"
-      );
-
-      setMessageType("error");
-
-      return;
-    }
-
-    setDownloadingClip(true);
-
-    setClipProgress(0);
-
-    setMessage(
-      "Starting clip download..."
-    );
-
-    setMessageType("");
-
-    try {
-      // ========================================================
-      // START CLIP DOWNLOAD
-      // ========================================================
-
-      const startResponse =
-        await fetch(
-          "http://localhost:8080/api/media/clip/start",
+      try {
+        const response = await fetch(
+          `${API_BASE}/thumbnail/download`,
           {
             method: "POST",
-
             headers: {
               "Content-Type":
                 "application/json",
             },
-
             body: JSON.stringify({
               url: url.trim(),
-              startTime: startTime.trim(),
-              endTime: endTime.trim(),
-              quality: Number(quality),
             }),
+            cache: "no-store",
           }
         );
 
-      if (!startResponse.ok) {
-        const errorText =
-          await startResponse.text();
+        if (!response.ok) {
+          const text =
+            await response.text();
 
-        throw new Error(
-          errorText ||
+          throw new Error(
+            text ||
+              "Could not download thumbnail"
+          );
+        }
+
+        const blob =
+          await response.blob();
+
+        const downloadUrl =
+          window.URL.createObjectURL(
+            blob
+          );
+
+        const link =
+          document.createElement("a");
+
+        link.href = downloadUrl;
+
+        link.download =
+          videoInfo?.title
+            ? `${videoInfo.title}-thumbnail.jpg`
+            : "MediaMeld-thumbnail.jpg";
+
+        document.body.appendChild(
+          link
+        );
+
+        link.click();
+
+        link.remove();
+
+        setTimeout(() => {
+          window.URL.revokeObjectURL(
+            downloadUrl
+          );
+        }, 1000);
+
+        setMessage(
+          t.thumbnailDownloadedSuccessfully
+        );
+      } catch (err) {
+        console.error(
+          "Thumbnail error:",
+          err
+        );
+
+        setError(
+          err.message ||
+            "Could not download thumbnail"
+        );
+      } finally {
+        setThumbnailLoading(false);
+      }
+    };
+
+  // ============================================================
+  // VIDEO CLIP PROGRESS POLLING
+  // ============================================================
+
+  const startClipProgressPolling = () => {
+    clearInterval(clipPollingRef.current);
+    clipPollingStartRef.current = Date.now();
+    clipPollingRef.current = setInterval(async () => {
+      try {
+        const response = await fetch(`${API_BASE}/clip/status?t=${Date.now()}`, { cache: "no-store" });
+        if (!response.ok) throw new Error(`Clip status endpoint returned ${response.status}`);
+        const data = await response.json();
+        setClipProgress(Number(data.progress) || 0);
+        setClipSpeed(data.speed || "0 B/s"); setClipEta(data.eta || "--:--");
+        if (data.error) { clearInterval(clipPollingRef.current); setError(data.error); setClipStatus("ERROR"); return; }
+        if (data.completed) {
+          clearInterval(clipPollingRef.current);
+          setClipProgress(100); setClipSpeed(t.completed); setClipEta("00:00"); setClipStatus("COMPLETED");
+          await downloadCompletedClip(); return;
+        }
+        setClipStatus(data.downloading ? "DOWNLOADING" : "IDLE");
+        if (Date.now() - clipPollingStartRef.current > 15 * 60 * 1000) {
+          clearInterval(clipPollingRef.current); setError(t.clipDownloadStuck); setClipStatus("ERROR");
+        }
+      } catch (err) { console.error("Clip progress error:", err); }
+    }, 500);
+  };
+  // ============================================================
+  // START VIDEO CLIP DOWNLOAD
+  // ============================================================
+
+  const startClipDownload =
+    async () => {
+      if (!url.trim()) {
+        setError(
+          t.pleaseEnterUrl
+        );
+        return;
+      }
+
+      if (
+        !startTime.trim() ||
+        !endTime.trim()
+      ) {
+        setError(
+          t.startEndRequired
+        );
+        return;
+      }
+
+      if (!quality || quality <= 0) {
+        setError(
+          t.pleaseSelectQuality
+        );
+        return;
+      }
+
+      clearInterval(
+        clipPollingRef.current
+      );
+
+      setError("");
+      setMessage("");
+
+      setClipProgress(0);
+      setClipSpeed("0 B/s");
+      setClipEta("--:--");
+      setClipStatus("STARTING");
+
+      try {
+        const response = await fetch(
+          `${API_BASE}/clip/download`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type":
+                "application/json",
+            },
+            body: JSON.stringify({
+              url: url.trim(),
+              quality: Number(quality),
+              startTime:
+                startTime.trim(),
+              endTime:
+                endTime.trim(),
+            }),
+            cache: "no-store",
+          }
+        );
+
+        if (!response.ok) {
+          const text =
+            await response.text();
+
+          throw new Error(
+            text ||
+              "Could not start clip download"
+          );
+        }
+
+        await response.text();
+
+        setMessage(
+          t.clipDownloadStarted
+        );
+
+        setClipStatus(
+          "DOWNLOADING"
+        );
+
+        startClipProgressPolling();
+      } catch (err) {
+        console.error(
+          "Start clip error:",
+          err
+        );
+
+        setError(
+          err.message ||
             "Could not start clip download"
         );
+
+        setClipStatus("IDLE");
       }
+    };
 
-      // ========================================================
-      // MONITOR CLIP
-      // ========================================================
+  // ============================================================
+  // DOWNLOAD COMPLETED VIDEO CLIP
+  // ============================================================
 
-      let completed = false;
-
-      while (!completed) {
-        await new Promise(
-          (resolve) =>
-            setTimeout(resolve, 1000)
+  const downloadCompletedClip =
+    async () => {
+      try {
+        const response = await fetch(
+          `${API_BASE}/clip/file?t=${Date.now()}`,
+          {
+            cache: "no-store",
+          }
         );
 
-        // ======================================================
-        // CLIP PROGRESS
-        // ======================================================
+        if (!response.ok) {
+          const text =
+            await response.text();
 
-        const progressResponse =
-          await fetch(
-            "http://localhost:8080/api/media/clip/progress"
-          );
-
-        if (!progressResponse.ok) {
           throw new Error(
-            "Could not get clip progress"
+            text ||
+              "Could not retrieve downloaded clip"
           );
         }
 
-        const currentProgress =
-          await progressResponse.json();
+        const blob =
+          await response.blob();
 
-        const rounded =
-          Math.round(
-            Number(currentProgress)
+        const downloadUrl =
+          window.URL.createObjectURL(
+            blob
           );
 
-        setClipProgress(
-          Math.min(
-            100,
-            Math.max(0, rounded)
-          )
+        const link =
+          document.createElement("a");
+
+        link.href = downloadUrl;
+
+        link.download =
+          videoInfo?.title
+            ? `${videoInfo.title}-clip.mp4`
+            : "MediaMeld-clip.mp4";
+
+        document.body.appendChild(
+          link
         );
 
-        // ======================================================
-        // CLIP STATUS
-        // ======================================================
+        link.click();
 
-        const statusResponse =
-          await fetch(
-            "http://localhost:8080/api/media/clip/status"
+        link.remove();
+
+        setTimeout(() => {
+          window.URL.revokeObjectURL(
+            downloadUrl
           );
+        }, 1000);
 
-        if (!statusResponse.ok) {
-          throw new Error(
-            "Could not get clip status"
-          );
-        }
-
-        const status =
-          await statusResponse.text();
-
-        console.log(
-          "Clip:",
-          rounded + "%",
-          status
+        setMessage(
+          t.clipDownloadedSuccessfully
         );
 
-        // ======================================================
-        // COMPLETED
-        // ======================================================
+        setClipStatus(
+          "COMPLETED"
+        );
+      } catch (err) {
+        console.error(
+          "Completed clip error:",
+          err
+        );
 
-        if (status === "COMPLETED") {
-          completed = true;
-
-          setClipProgress(100);
-
-          setMessage(
-            "Clip download completed!"
-          );
-
-          setMessageType("success");
-        }
-
-        // ======================================================
-        // ERROR
-        // ======================================================
-
-        if (
-          status.startsWith("ERROR:")
-        ) {
-          const actualError =
-            status
-              .substring(
-                "ERROR:".length
-              )
-              .trim();
-
-          throw new Error(
-            actualError ||
-              "Clip download failed"
-          );
-        }
-
-        // ======================================================
-        // CANCELLED
-        // ======================================================
-
-        if (
-          status === "IDLE" &&
-          rounded === 0
-        ) {
-          completed = true;
-
-          throw new Error(
-            "Clip download cancelled"
-          );
-        }
+        setError(
+          err.message ||
+            "Could not download clip"
+        );
       }
+    };
 
-      // ========================================================
-      // GET COMPLETED CLIP
-      // ========================================================
+  // ============================================================
+  // CANCEL VIDEO CLIP
+  // ============================================================
 
-      const fileResponse =
+  const cancelClipDownload =
+    async () => {
+      try {
+        clearInterval(
+          clipPollingRef.current
+        );
+
         await fetch(
-          "http://localhost:8080/api/media/clip/file"
+          `${API_BASE}/clip/cancel`,
+          {
+            method: "POST",
+            cache: "no-store",
+          }
         );
 
-      if (!fileResponse.ok) {
-        throw new Error(
-          "Could not get completed clip file"
+        setClipProgress(0);
+        setClipSpeed("0 B/s");
+        setClipEta("--:--");
+        setClipStatus("IDLE");
+
+        setMessage(
+          t.clipDownloadCancelled
+        );
+      } catch (err) {
+        console.error(
+          "Cancel clip error:",
+          err
+        );
+
+        setError(
+          "Could not cancel clip download"
         );
       }
+    };
 
-      const blob =
-        await fileResponse.blob();
+  // ============================================================
+  // AUDIO CLIP PROGRESS POLLING
+  // ============================================================
 
-      // ========================================================
-      // DOWNLOAD TO LAPTOP
-      // ========================================================
+  const startAudioClipProgressPolling = () => {
+    clearInterval(audioClipPollingRef.current);
+    audioClipPollingStartRef.current = Date.now();
+    audioClipPollingRef.current = setInterval(async () => {
+      try {
+        const response = await fetch(`${API_BASE}/audio-clip/status?t=${Date.now()}`, { cache: "no-store" });
+        if (!response.ok) throw new Error(`Audio clip status endpoint returned ${response.status}`);
+        const data = await response.json();
+        setAudioClipProgress(Number(data.progress) || 0);
+        setAudioClipSpeed(data.speed || "0 B/s"); setAudioClipEta(data.eta || "--:--");
+        if (data.error) { clearInterval(audioClipPollingRef.current); setError(data.error); setAudioClipStatus("ERROR"); return; }
+        if (data.completed) {
+          clearInterval(audioClipPollingRef.current);
+          setAudioClipProgress(100); setAudioClipSpeed(t.completed); setAudioClipEta("00:00"); setAudioClipStatus("COMPLETED");
+          await downloadCompletedAudioClip(); return;
+        }
+        setAudioClipStatus(data.downloading ? "DOWNLOADING" : "IDLE");
+        if (Date.now() - audioClipPollingStartRef.current > 15 * 60 * 1000) {
+          clearInterval(audioClipPollingRef.current);
+          setError(t.audioDownloadStuck || "Audio clip download is taking too long."); setAudioClipStatus("ERROR");
+        }
+      } catch (err) { console.error("Audio clip progress error:", err); }
+    }, 500);
+  };
+  // ============================================================
+  // START AUDIO CLIP DOWNLOAD
+  // ============================================================
 
-      const downloadUrl =
-        window.URL.createObjectURL(
-          blob
+  const startAudioClipDownload =
+    async () => {
+      if (!url.trim()) {
+        setError(
+          t.pleaseEnterUrl
+        );
+        return;
+      }
+
+      if (
+        !audioClipStartTime.trim() ||
+        !audioClipEndTime.trim()
+      ) {
+        setError(
+          t.startEndRequired
+        );
+        return;
+      }
+
+      clearInterval(
+        audioClipPollingRef.current
+      );
+
+      setError("");
+      setMessage("");
+
+      setAudioClipProgress(0);
+      setAudioClipSpeed("0 B/s");
+      setAudioClipEta("--:--");
+      setAudioClipStatus("STARTING");
+
+      try {
+        const response = await fetch(
+          `${API_BASE}/audio-clip/download`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type":
+                "application/json",
+            },
+            body: JSON.stringify({
+              url: url.trim(),
+              startTime:
+                audioClipStartTime.trim(),
+              endTime:
+                audioClipEndTime.trim(),
+            }),
+            cache: "no-store",
+          }
         );
 
-      const link =
-        document.createElement("a");
+        if (!response.ok) {
+          const text =
+            await response.text();
 
-      link.href = downloadUrl;
+          throw new Error(
+            text ||
+              "Could not start audio clip download"
+          );
+        }
 
-      const safeStart =
-        startTime
-          .trim()
-          .replace(/:/g, "-");
+        await response.text();
 
-      const safeEnd =
-        endTime
-          .trim()
-          .replace(/:/g, "-");
+        setMessage(
+          t.audioClipDownloadStarted ||
+            "Audio clip download started."
+        );
 
-      link.download =
-        videoInfo?.title
-          ? `${videoInfo.title}-clip-${safeStart}-${safeEnd}.mp4`
-          : `MediaMeld-clip-${safeStart}-${safeEnd}.mp4`;
+        setAudioClipStatus(
+          "DOWNLOADING"
+        );
 
-      document.body.appendChild(link);
+        startAudioClipProgressPolling();
+      } catch (err) {
+        console.error(
+          "Start audio clip error:",
+          err
+        );
 
-      link.click();
+        setError(
+          err.message ||
+            "Could not start audio clip download"
+        );
 
-      link.remove();
+        setAudioClipStatus(
+          "IDLE"
+        );
+      }
+    };
 
-      window.URL.revokeObjectURL(
-        downloadUrl
-      );
+  // ============================================================
+  // DOWNLOAD COMPLETED AUDIO CLIP
+  // ============================================================
 
-      setMessage(
-        "Clip downloaded successfully!"
-      );
+  const downloadCompletedAudioClip =
+    async () => {
+      try {
+        const response = await fetch(
+          `${API_BASE}/audio-clip/file?t=${Date.now()}`,
+          {
+            cache: "no-store",
+          }
+        );
 
-      setMessageType("success");
+        if (!response.ok) {
+          const text =
+            await response.text();
 
-    } catch (error) {
-      console.error(
-        "Clip download error:",
-        error
-      );
+          throw new Error(
+            text ||
+              "Could not retrieve downloaded audio clip"
+          );
+        }
 
-      setMessage(
-        error.message ||
-          "Clip download failed"
-      );
+        const blob =
+          await response.blob();
 
-      setMessageType("error");
+        const downloadUrl =
+          window.URL.createObjectURL(
+            blob
+          );
 
-    } finally {
-      setDownloadingClip(false);
+        const link =
+          document.createElement("a");
+
+        link.href = downloadUrl;
+
+        link.download =
+          videoInfo?.title
+            ? `${videoInfo.title}-audio-clip.m4a`
+            : "MediaMeld-audio-clip.m4a";
+
+        document.body.appendChild(
+          link
+        );
+
+        link.click();
+
+        link.remove();
+
+        setTimeout(() => {
+          window.URL.revokeObjectURL(
+            downloadUrl
+          );
+        }, 1000);
+
+        setMessage(
+          t.audioClipDownloadedSuccessfully ||
+            "Audio clip downloaded successfully."
+        );
+
+        setAudioClipStatus(
+          "COMPLETED"
+        );
+      } catch (err) {
+        console.error(
+          "Completed audio clip error:",
+          err
+        );
+
+        setError(
+          err.message ||
+            "Could not download audio clip"
+        );
+      }
+    };
+
+  // ============================================================
+  // CANCEL AUDIO CLIP
+  // ============================================================
+
+  const cancelAudioClipDownload =
+    async () => {
+      try {
+        clearInterval(
+          audioClipPollingRef.current
+        );
+
+        await fetch(
+          `${API_BASE}/audio-clip/cancel`,
+          {
+            method: "POST",
+            cache: "no-store",
+          }
+        );
+
+        setAudioClipProgress(0);
+        setAudioClipSpeed("0 B/s");
+        setAudioClipEta("--:--");
+        setAudioClipStatus("IDLE");
+
+        setMessage(
+          t.audioClipDownloadCancelled ||
+            "Audio clip download cancelled."
+        );
+      } catch (err) {
+        console.error(
+          "Cancel audio clip error:",
+          err
+        );
+
+        setError(
+          "Could not cancel audio clip download"
+        );
+      }
+    };
+
+  // ============================================================
+  // FORMAT DURATION
+  // ============================================================
+
+  const formatDuration = (
+    seconds
+  ) => {
+    if (!seconds) {
+      return "00:00";
     }
+
+    const totalSeconds =
+      Math.floor(seconds);
+
+    const hours =
+      Math.floor(
+        totalSeconds / 3600
+      );
+
+    const minutes =
+      Math.floor(
+        (totalSeconds % 3600) / 60
+      );
+
+    const secs =
+      totalSeconds % 60;
+
+    if (hours > 0) {
+      return (
+        `${String(hours).padStart(
+          2,
+          "0"
+        )}:` +
+        `${String(minutes).padStart(
+          2,
+          "0"
+        )}:` +
+        `${String(secs).padStart(
+          2,
+          "0"
+        )}`
+      );
+    }
+
+    return (
+      `${String(minutes).padStart(
+        2,
+        "0"
+      )}:` +
+      `${String(secs).padStart(
+        2,
+        "0"
+      )}`
+    );
   };
 
   // ============================================================
-  // CANCEL CLIP
+  // DISPLAY STATUS
   // ============================================================
 
-  const handleCancelClip = async () => {
-    try {
-      const response =
-        await fetch(
-          "http://localhost:8080/api/media/clip/cancel",
-          {
-            method: "POST",
-          }
-        );
+  const getStatusText = (
+    status
+  ) => {
+    switch (status) {
+      case "IDLE":
+        return t.idle;
 
-      if (!response.ok) {
-        throw new Error(
-          "Could not cancel clip download"
-        );
-      }
+      case "DOWNLOADING":
+        return t.downloading;
 
-      setDownloadingClip(false);
+      case "COMPLETED":
+        return t.completed;
 
-      setClipProgress(0);
+      case "ERROR":
+        return t.error;
 
-      setMessage(
-        "Clip download cancelled"
-      );
+      case "STARTING":
+        return t.starting;
 
-      setMessageType("");
-
-    } catch (error) {
-      console.error(
-        "Cancel clip error:",
-        error
-      );
-
-      setMessage(
-        error.message ||
-          "Could not cancel clip download"
-      );
-
-      setMessageType("error");
+      default:
+        return status;
     }
   };
 
@@ -1233,70 +1343,153 @@ function App() {
 
   return (
     <div className="app">
-
       <div className="container">
 
-        {/* ====================================================
+        {/* ======================================================
             HEADER
-        ==================================================== */}
+        ====================================================== */}
 
-        <header className="header">
+        <div className="header">
 
           <div className="logo">
-            MediaMeld
+            {t.appTitle}
           </div>
 
           <p>
-            Download YouTube videos,
-            audio, clips and thumbnails
+            {t.appSubtitle}
           </p>
 
-        </header>
+          <div className="header-settings">
 
+            {/* LANGUAGE */}
 
-        {/* ====================================================
-            URL INPUT
-        ==================================================== */}
+            <div className="language-selector">
 
-        <section className="search-section">
+              <label htmlFor="language">
+                {t.language}
+              </label>
+
+              <select
+                id="language"
+                value={language}
+                onChange={(e) =>
+                  setLanguage(
+                    e.target.value
+                  )
+                }
+              >
+                {Object.entries(
+                  translations
+                ).map(
+                  ([
+                    code,
+                    translation,
+                  ]) => (
+                    <option
+                      key={code}
+                      value={code}
+                    >
+                      {
+                        translation.languageName
+                      }
+                    </option>
+                  )
+                )}
+              </select>
+
+            </div>
+
+            {/* THEME */}
+
+            <div className="theme-selector">
+
+              <label htmlFor="theme">
+                Theme
+              </label>
+
+              <select
+                id="theme"
+                value={theme}
+                onChange={(e) =>
+                  setTheme(
+                    e.target.value
+                  )
+                }
+              >
+                <option value="dark">
+                  🌙 Dark
+                </option>
+
+                <option value="light">
+                  ☀️ Light
+                </option>
+              </select>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* ======================================================
+            SEARCH
+        ====================================================== */}
+
+        <div className="search-section">
 
           <input
-            id="youtube-url"
-            name="youtube-url"
             className="url-input"
-            type="url"
-            placeholder="Paste YouTube URL here..."
+            type="text"
+            placeholder={
+              t.pasteUrl
+            }
             value={url}
             onChange={(e) =>
               setUrl(e.target.value)
             }
-            disabled={downloading}
-            autoComplete="url"
+            disabled={loading}
           />
 
           <button
             className="analyze-btn"
-            onClick={handleAnalyze}
-            disabled={
-              analyzing ||
-              downloading
+            onClick={
+              analyzeVideo
             }
+            disabled={loading}
           >
-            {analyzing
-              ? "Analyzing..."
-              : "Analyze"}
+            {loading
+              ? t.analyzing
+              : t.analyze}
           </button>
 
-        </section>
+        </div>
 
+        {/* ======================================================
+            ERROR
+        ====================================================== */}
 
-        {/* ====================================================
+        {error && (
+          <div className="message message-error">
+            {error}
+          </div>
+        )}
+
+        {/* ======================================================
+            SUCCESS
+        ====================================================== */}
+
+        {message && (
+          <div className="message message-success">
+            {message}
+          </div>
+        )}
+
+        {/* ======================================================
             VIDEO CARD
-        ==================================================== */}
+        ====================================================== */}
 
         {videoInfo && (
-
-          <section className="video-card">
+          <div className="video-card">
 
             {/* ==================================================
                 THUMBNAIL
@@ -1304,17 +1497,20 @@ function App() {
 
             <div className="thumbnail-wrapper">
 
-              <img
-                src={videoInfo.thumbnail}
-                alt="YouTube video thumbnail"
-                className="thumbnail"
-              />
+              {videoInfo.thumbnail && (
+                <img
+                  src={
+                    videoInfo.thumbnail
+                  }
+                  alt="Video Thumbnail"
+                  className="thumbnail"
+                />
+              )}
 
             </div>
 
-
             {/* ==================================================
-                VIDEO DETAILS
+                DETAILS
             ================================================== */}
 
             <div className="video-details">
@@ -1324,25 +1520,27 @@ function App() {
               </h2>
 
               <p className="channel">
-                {videoInfo.channelName}
+                {t.channel}:{" "}
+                {videoInfo.channelName ||
+                  t.unknown}
+                {" • "}
+                {t.duration}:{" "}
+                {formatDuration(
+                  videoInfo.duration
+                )}
               </p>
 
-
-              {/* ===============================================
-                  VIDEO QUALITY
-              =============================================== */}
+              {/* ==================================================
+                  QUALITY
+              ================================================== */}
 
               <div className="quality-section">
 
-                <label
-                  htmlFor="video-quality"
-                >
-                  Video Quality
+                <label>
+                  {t.videoQuality}
                 </label>
 
                 <select
-                  id="video-quality"
-                  name="video-quality"
                   value={quality}
                   onChange={(e) =>
                     setQuality(
@@ -1351,84 +1549,78 @@ function App() {
                       )
                     )
                   }
-                  disabled={downloading}
+                  disabled={
+                    videoStatus ===
+                      "DOWNLOADING" ||
+                    videoStatus ===
+                      "STARTING"
+                  }
                 >
-
-                  {Array.isArray(
-                    videoInfo.qualities
-                  ) &&
-                    videoInfo.qualities.map(
-                      (q) => (
-
-                        <option
-                          key={q}
-                          value={q}
-                        >
-                          {q}p
-                        </option>
-
-                      )
-                    )}
-
+                  {videoInfo.qualities
+                    ?.slice()
+                    .sort(
+                      (a, b) =>
+                        b - a
+                    )
+                    .map((q) => (
+                      <option
+                        key={q}
+                        value={q}
+                      >
+                        {q}p
+                      </option>
+                    ))}
                 </select>
 
               </div>
 
-
-              {/* ===============================================
+              {/* ==================================================
                   VIDEO DOWNLOAD
-              =============================================== */}
+              ================================================== */}
 
-              {!downloadingVideo && (
+              <button
+                className="download-btn video-btn"
+                onClick={
+                  startVideoDownload
+                }
+                disabled={
+                  videoStatus ===
+                    "DOWNLOADING" ||
+                  videoStatus ===
+                    "STARTING"
+                }
+              >
+                {videoStatus ===
+                "STARTING"
+                  ? t.starting
+                  : t.downloadVideo}
+              </button>
 
-                <button
-                  className="download-btn video-btn"
-                  onClick={
-                    handleDownloadVideo
-                  }
-                  disabled={downloading}
-                >
-                  Download Video
-                </button>
+              {/* VIDEO PROGRESS */}
 
-              )}
-
-              {downloadingVideo && (
-
-                <button
-                  className="download-btn cancel-btn"
-                  onClick={
-                    handleCancelVideo
-                  }
-                >
-                  Cancel Video Download
-                </button>
-
-              )}
-
-
-              {/* ===============================================
-                  VIDEO PROGRESS
-              =============================================== */}
-
-              {downloadingVideo && (
-
+              {(videoStatus ===
+                "DOWNLOADING" ||
+                videoStatus ===
+                  "STARTING" ||
+                videoProgress > 0) && (
                 <div className="progress-section">
 
                   <div className="progress-header">
-
                     <span>
-                      Video Download
+                      {getStatusText(
+                        videoStatus
+                      )}
                     </span>
 
                     <span>
-                      {videoProgress}%
+                      {videoProgress.toFixed(
+                        1
+                      )}
+                      %
                     </span>
-
                   </div>
 
                   <div className="progress-bar">
-
                     <div
                       className="progress-fill"
                       style={{
@@ -1436,72 +1628,82 @@ function App() {
                           `${videoProgress}%`,
                       }}
                     />
-
                   </div>
 
-                  <p>
-                    Downloading video...
-                  </p>
+                  <div className="download-stats">
+                    <span>
+                      {t.speed}:{" "}
+                      {videoSpeed}
+                    </span>
+
+                    <span>
+                      {t.eta}:{" "}
+                      {videoEta}
+                    </span>
+                  </div>
+
+                  {videoStatus ===
+                    "DOWNLOADING" && (
+                    <button
+                      className="cancel-btn"
+                      onClick={
+                        cancelVideoDownload
+                      }
+                    >
+                      {t.cancel}
+                    </button>
+                  )}
 
                 </div>
-
               )}
 
+              {/* ==================================================
+                  FULL AUDIO DOWNLOAD
+              ================================================== */}
 
-              {/* ===============================================
-                  AUDIO DOWNLOAD
-              =============================================== */}
+              <button
+                className="download-btn audio-btn"
+                onClick={
+                  startAudioDownload
+                }
+                disabled={
+                  audioStatus ===
+                    "DOWNLOADING" ||
+                  audioStatus ===
+                    "STARTING"
+                }
+              >
+                {audioStatus ===
+                "STARTING"
+                  ? t.starting
+                  : t.downloadAudio}
+              </button>
 
-              {!downloadingAudio && (
+              {/* AUDIO PROGRESS */}
 
-                <button
-                  className="download-btn audio-btn"
-                  onClick={
-                    handleDownloadAudio
-                  }
-                  disabled={downloading}
-                >
-                  Download Best Audio
-                </button>
-
-              )}
-
-              {downloadingAudio && (
-
-                <button
-                  className="download-btn cancel-btn"
-                  onClick={
-                    handleCancelAudio
-                  }
-                >
-                  Cancel Audio Download
-                </button>
-
-              )}
-
-
-              {/* ===============================================
-                  AUDIO PROGRESS
-              =============================================== */}
-
-              {downloadingAudio && (
-
+              {(audioStatus ===
+                "DOWNLOADING" ||
+                audioStatus ===
+                  "STARTING" ||
+                audioProgress > 0) && (
                 <div className="progress-section">
 
                   <div className="progress-header">
-
                     <span>
-                      Audio Download
+                      {getStatusText(
+                        audioStatus
+                      )}
                     </span>
 
                     <span>
-                      {audioProgress}%
+                      {audioProgress.toFixed(
+                        1
+                      )}
+                      %
                     </span>
-
                   </div>
 
                   <div className="progress-bar">
-
                     <div
                       className="progress-fill"
                       style={{
@@ -1509,149 +1711,331 @@ function App() {
                           `${audioProgress}%`,
                       }}
                     />
-
                   </div>
 
-                  <p>
-                    Downloading best quality audio...
-                  </p>
+                  <div className="download-stats">
+                    <span>
+                      {t.speed}:{" "}
+                      {audioSpeed}
+                    </span>
+
+                    <span>
+                      {t.eta}:{" "}
+                      {audioEta}
+                    </span>
+                  </div>
+
+                  {audioStatus ===
+                    "DOWNLOADING" && (
+                    <button
+                      className="cancel-btn"
+                      onClick={
+                        cancelAudioDownload
+                      }
+                    >
+                      {t.cancel}
+                    </button>
+                  )}
 
                 </div>
-
               )}
 
+              {/* ==================================================
+                  THUMBNAIL
+              ================================================== */}
 
-              {/* ===============================================
-                  CLIP SECTION
-              =============================================== */}
+              <button
+                className="download-btn thumbnail-btn"
+                onClick={
+                  downloadThumbnail
+                }
+                disabled={
+                  thumbnailLoading
+                }
+              >
+                {thumbnailLoading
+                  ? t.downloadingThumbnail
+                  : t.downloadThumbnail}
+              </button>
+
+              {/* ==================================================
+                  VIDEO CLIP
+              ================================================== */}
 
               <div className="clip-section">
 
-                <h3>
-                  Download Specific Part
+                <h3 className="clip-title">
+                  {t.clipDownload}
                 </h3>
 
                 <p className="clip-description">
-                  Enter the start and end time
-                  of the part you want to download.
+                  {t.clipDescription}
                 </p>
-
-
-                {/* =============================================
-                    START TIME
-                ============================================= */}
 
                 <div className="clip-time-row">
 
                   <div className="clip-time-field">
 
-                    <label
-                      htmlFor="start-time"
-                    >
-                      Start Time
+                    <label>
+                      {t.startTime}
                     </label>
 
                     <input
-                      id="start-time"
-                      name="start-time"
+                      className="clip-time-input"
                       type="text"
-                      placeholder="02:15"
-                      value={startTime}
+                      placeholder="00:00"
+                      value={
+                        startTime
+                      }
                       onChange={(e) =>
                         setStartTime(
                           e.target.value
                         )
                       }
-                      disabled={downloading}
+                      disabled={
+                        clipStatus ===
+                          "DOWNLOADING" ||
+                        clipStatus ===
+                          "STARTING"
+                      }
                     />
 
                   </div>
 
-
-                  {/* ==========================================
-                      END TIME
-                  ========================================== */}
-
                   <div className="clip-time-field">
 
-                    <label
-                      htmlFor="end-time"
-                    >
-                      End Time
+                    <label>
+                      {t.endTime}
                     </label>
 
                     <input
-                      id="end-time"
-                      name="end-time"
+                      className="clip-time-input"
                       type="text"
-                      placeholder="05:40"
-                      value={endTime}
+                      placeholder="00:30"
+                      value={
+                        endTime
+                      }
                       onChange={(e) =>
                         setEndTime(
                           e.target.value
                         )
                       }
-                      disabled={downloading}
+                      disabled={
+                        clipStatus ===
+                          "DOWNLOADING" ||
+                        clipStatus ===
+                          "STARTING"
+                      }
                     />
 
                   </div>
 
                 </div>
 
+                <button
+                  className="download-btn clip-btn"
+                  onClick={
+                    startClipDownload
+                  }
+                  disabled={
+                    clipStatus ===
+                      "DOWNLOADING" ||
+                    clipStatus ===
+                      "STARTING"
+                  }
+                >
+                  {clipStatus ===
+                  "STARTING"
+                    ? t.starting
+                    : t.downloadClip}
+                </button>
 
-                <p className="time-format">
-                  Format: MM:SS or HH:MM:SS
+                {/* CLIP PROGRESS */}
+
+                {(clipStatus ===
+                  "DOWNLOADING" ||
+                  clipStatus ===
+                    "STARTING" ||
+                  clipProgress > 0) && (
+                  <div className="progress-section">
+
+                    <div className="progress-header">
+                      <span>
+                        {getStatusText(
+                          clipStatus
+                        )}
+                      </span>
+
+                      <span>
+                        {clipProgress.toFixed(
+                          1
+                        )}
+                        %
+                      </span>
+                    </div>
+
+                    <div className="progress-bar">
+                      <div
+                        className="progress-fill"
+                        style={{
+                          width:
+                            `${clipProgress}%`,
+                        }}
+                      />
+                    </div>
+
+                    <div className="download-stats">
+                      <span>
+                        {t.speed}:{" "}
+                        {clipSpeed}
+                      </span>
+
+                      <span>
+                        {t.eta}:{" "}
+                        {clipEta}
+                      </span>
+                    </div>
+
+                    {clipStatus ===
+                      "DOWNLOADING" && (
+                      <button
+                        className="cancel-btn"
+                        onClick={
+                          cancelClipDownload
+                        }
+                      >
+                        {t.cancel}
+                      </button>
+                    )}
+
+                  </div>
+                )}
+
+              </div>
+
+              {/* ==================================================
+                  AUDIO CLIP
+              ================================================== */}
+
+              <div className="clip-section">
+
+                <h3 className="clip-title">
+                  {t.audioClipDownload ||
+                    "Audio Clip Download"}
+                </h3>
+
+                <p className="clip-description">
+                  {t.audioClipDescription ||
+                    "Download only a selected part of the audio."}
                 </p>
 
+                <div className="clip-time-row">
 
-                {/* =============================================
-                    CLIP BUTTON
-                ============================================= */}
+                  {/* AUDIO CLIP START */}
 
-                {!downloadingClip && (
+                  <div className="clip-time-field">
 
-                  <button
-                    className="download-btn clip-btn"
-                    onClick={
-                      handleDownloadClip
-                    }
-                    disabled={downloading}
-                  >
-                    Download Clip
-                  </button>
+                    <label>
+                      {t.startTime}
+                    </label>
 
-                )}
+                    <input
+                      className="clip-time-input"
+                      type="text"
+                      placeholder="00:00"
+                      value={
+                        audioClipStartTime
+                      }
+                      onChange={(e) =>
+                        setAudioClipStartTime(
+                          e.target.value
+                        )
+                      }
+                      disabled={
+                        audioClipStatus ===
+                          "DOWNLOADING" ||
+                        audioClipStatus ===
+                          "STARTING"
+                      }
+                    />
 
-                {downloadingClip && (
+                  </div>
 
-                  <button
-                    className="download-btn cancel-btn"
-                    onClick={
-                      handleCancelClip
-                    }
-                  >
-                    Cancel Clip Download
-                  </button>
+                  {/* AUDIO CLIP END */}
 
-                )}
+                  <div className="clip-time-field">
 
+                    <label>
+                      {t.endTime}
+                    </label>
 
-                {/* =============================================
-                    CLIP PROGRESS
-                ============================================= */}
+                    <input
+                      className="clip-time-input"
+                      type="text"
+                      placeholder="00:30"
+                      value={
+                        audioClipEndTime
+                      }
+                      onChange={(e) =>
+                        setAudioClipEndTime(
+                          e.target.value
+                        )
+                      }
+                      disabled={
+                        audioClipStatus ===
+                          "DOWNLOADING" ||
+                        audioClipStatus ===
+                          "STARTING"
+                      }
+                    />
 
-                {downloadingClip && (
+                  </div>
 
+                </div>
+
+                {/* AUDIO CLIP BUTTON */}
+
+                <button
+                  className="download-btn audio-btn"
+                  onClick={
+                    startAudioClipDownload
+                  }
+                  disabled={
+                    audioClipStatus ===
+                      "DOWNLOADING" ||
+                    audioClipStatus ===
+                      "STARTING"
+                  }
+                >
+                  {audioClipStatus ===
+                  "STARTING"
+                    ? t.starting
+                    : t.downloadAudioClip ||
+                      "Download Audio Clip"}
+                </button>
+
+                {/* AUDIO CLIP PROGRESS */}
+
+                {(audioClipStatus ===
+                  "DOWNLOADING" ||
+                  audioClipStatus ===
+                    "STARTING" ||
+                  audioClipProgress > 0) && (
                   <div className="progress-section">
 
                     <div className="progress-header">
 
                       <span>
-                        Clip Download
+                        {getStatusText(
+                          audioClipStatus
+                        )}
                       </span>
 
                       <span>
-                        {clipProgress}%
+                        {audioClipProgress.toFixed(
+                          1
+                        )}
+                        %
                       </span>
 
                     </div>
@@ -1662,68 +2046,48 @@ function App() {
                         className="progress-fill"
                         style={{
                           width:
-                            `${clipProgress}%`,
+                            `${audioClipProgress}%`,
                         }}
                       />
 
                     </div>
 
-                    <p>
-                      Downloading selected part...
-                    </p>
+                    <div className="download-stats">
+
+                      <span>
+                        {t.speed}:{" "}
+                        {audioClipSpeed}
+                      </span>
+
+                      <span>
+                        {t.eta}:{" "}
+                        {audioClipEta}
+                      </span>
+
+                    </div>
+
+                    {audioClipStatus ===
+                      "DOWNLOADING" && (
+                      <button
+                        className="cancel-btn"
+                        onClick={
+                          cancelAudioClipDownload
+                        }
+                      >
+                        {t.cancel}
+                      </button>
+                    )}
 
                   </div>
-
                 )}
 
               </div>
 
-
-              {/* ===============================================
-                  THUMBNAIL DOWNLOAD
-              =============================================== */}
-
-              <button
-                className="download-btn thumbnail-btn"
-                onClick={
-                  handleDownloadThumbnail
-                }
-                disabled={downloading}
-              >
-                {downloadingThumbnail
-                  ? "Downloading Thumbnail..."
-                  : "Download Thumbnail"}
-              </button>
-
             </div>
-
-          </section>
-
-        )}
-
-
-        {/* ====================================================
-            MESSAGE
-        ==================================================== */}
-
-        {message && (
-
-          <div
-            className={`message ${
-              messageType === "success"
-                ? "message-success"
-                : messageType === "error"
-                  ? "message-error"
-                  : ""
-            }`}
-          >
-            {message}
           </div>
-
         )}
 
       </div>
-
     </div>
   );
 }

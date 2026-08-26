@@ -1,0 +1,2799 @@
+
+const translations = {
+  // ============================================================
+  // ENGLISH
+  // ============================================================
+
+  en: {
+    languageName: "English",
+
+    appTitle: "MediaMeld",
+    appSubtitle: "YouTube Video Downloader",
+
+    pasteUrl: "Paste YouTube URL...",
+    analyze: "Analyze",
+    analyzing: "Analyzing...",
+
+    videoAnalyzed: "Video analyzed successfully",
+
+    channel: "Channel",
+    unknown: "Unknown",
+    duration: "Duration",
+
+    videoQuality: "Video Quality",
+
+    downloadVideo: "Download Video",
+    starting: "Starting...",
+
+    downloadAudio: "Download Audio",
+
+    downloadThumbnail: "Download Thumbnail",
+    downloadingThumbnail: "Downloading Thumbnail...",
+
+    clipDownload: "Clip Download",
+    clipDescription:
+      "Download only a selected portion of the video.",
+
+    startTime: "Start Time",
+    endTime: "End Time",
+
+    downloadClip: "Download Clip",
+
+    cancel: "Cancel",
+
+    speed: "Speed",
+    eta: "ETA",
+
+    idle: "IDLE",
+    downloading: "DOWNLOADING",
+    completed: "COMPLETED",
+    error: "ERROR",
+
+    pleaseEnterUrl: "Please enter a YouTube URL",
+    thumbnailNotAvailable: "Thumbnail is not available",
+    pleaseSelectQuality: "Please select video quality",
+
+    videoDownloadStarted: "Video download started",
+    videoDownloadedSuccessfully:
+      "Video downloaded successfully",
+
+    audioDownloadStarted: "Audio download started",
+    audioDownloadedSuccessfully:
+      "Audio downloaded successfully",
+
+    thumbnailDownloadedSuccessfully:
+      "Thumbnail downloaded successfully",
+
+    clipDownloadStarted: "Clip download started",
+    clipDownloadedSuccessfully:
+      "Clip downloaded successfully",
+
+    videoDownloadCancelled:
+      "Video download cancelled",
+
+    audioDownloadCancelled:
+      "Audio download cancelled",
+
+    clipDownloadCancelled:
+      "Clip download cancelled",
+
+    videoDownloadStuck:
+      "Video download appears to be stuck. Please check the Spring Boot console.",
+
+    audioDownloadStuck:
+      "Audio download appears to be stuck.",
+
+    clipDownloadStuck:
+      "Clip download appears to be stuck.",
+
+    startEndRequired:
+      "Start time and end time are required",
+
+    invalidVideoQuality:
+      "Invalid video quality",
+
+    language: "Language",
+  },
+
+
+  // ============================================================
+  // HINDI
+  // ============================================================
+
+  hi: {
+    languageName: "हिन्दी",
+
+    appTitle: "MediaMeld",
+    appSubtitle: "YouTube वीडियो डाउनलोडर",
+
+    pasteUrl: "YouTube URL पेस्ट करें...",
+    analyze: "विश्लेषण करें",
+    analyzing: "विश्लेषण हो रहा है...",
+
+    videoAnalyzed:
+      "वीडियो का सफलतापूर्वक विश्लेषण किया गया",
+
+    channel: "चैनल",
+    unknown: "अज्ञात",
+    duration: "अवधि",
+
+    videoQuality: "वीडियो गुणवत्ता",
+
+    downloadVideo: "वीडियो डाउनलोड करें",
+    starting: "शुरू हो रहा है...",
+
+    downloadAudio: "ऑडियो डाउनलोड करें",
+
+    downloadThumbnail: "थंबनेल डाउनलोड करें",
+    downloadingThumbnail:
+      "थंबनेल डाउनलोड हो रहा है...",
+
+    clipDownload: "क्लिप डाउनलोड",
+    clipDescription:
+      "वीडियो के केवल चुने हुए हिस्से को डाउनलोड करें।",
+
+    startTime: "शुरुआत का समय",
+    endTime: "समाप्ति का समय",
+
+    downloadClip: "क्लिप डाउनलोड करें",
+
+    cancel: "रद्द करें",
+
+    speed: "गति",
+    eta: "अनुमानित समय",
+
+    idle: "निष्क्रिय",
+    downloading: "डाउनलोड हो रहा है",
+    completed: "पूरा हुआ",
+    error: "त्रुटि",
+
+    pleaseEnterUrl:
+      "कृपया YouTube URL दर्ज करें",
+
+    thumbnailNotAvailable:
+      "थंबनेल उपलब्ध नहीं है",
+
+    pleaseSelectQuality:
+      "कृपया वीडियो गुणवत्ता चुनें",
+
+    videoDownloadStarted:
+      "वीडियो डाउनलोड शुरू हो गया है",
+
+    videoDownloadedSuccessfully:
+      "वीडियो सफलतापूर्वक डाउनलोड हो गया",
+
+    audioDownloadStarted:
+      "ऑडियो डाउनलोड शुरू हो गया है",
+
+    audioDownloadedSuccessfully:
+      "ऑडियो सफलतापूर्वक डाउनलोड हो गया",
+
+    thumbnailDownloadedSuccessfully:
+      "थंबनेल सफलतापूर्वक डाउनलोड हो गया",
+
+    clipDownloadStarted:
+      "क्लिप डाउनलोड शुरू हो गया है",
+
+    clipDownloadedSuccessfully:
+      "क्लिप सफलतापूर्वक डाउनलोड हो गई",
+
+    videoDownloadCancelled:
+      "वीडियो डाउनलोड रद्द कर दिया गया",
+
+    audioDownloadCancelled:
+      "ऑडियो डाउनलोड रद्द कर दिया गया",
+
+    clipDownloadCancelled:
+      "क्लिप डाउनलोड रद्द कर दी गई",
+
+    videoDownloadStuck:
+      "वीडियो डाउनलोड अटक गया है। कृपया Spring Boot console देखें।",
+
+    audioDownloadStuck:
+      "ऑडियो डाउनलोड अटक गया है।",
+
+    clipDownloadStuck:
+      "क्लिप डाउनलोड अटक गई है।",
+
+    startEndRequired:
+      "शुरुआत और समाप्ति का समय आवश्यक है",
+
+    invalidVideoQuality:
+      "वीडियो गुणवत्ता अमान्य है",
+
+    language: "भाषा",
+  },
+
+
+  // ============================================================
+  // TELUGU
+  // ============================================================
+
+  te: {
+    languageName: "తెలుగు",
+
+    appTitle: "MediaMeld",
+    appSubtitle: "YouTube వీడియో డౌన్‌లోడర్",
+
+    pasteUrl:
+      "YouTube URL ఇక్కడ పేస్ట్ చేయండి...",
+
+    analyze: "విశ్లేషించండి",
+    analyzing: "విశ్లేషిస్తోంది...",
+
+    videoAnalyzed:
+      "వీడియో విజయవంతంగా విశ్లేషించబడింది",
+
+    channel: "ఛానల్",
+    unknown: "తెలియదు",
+    duration: "వ్యవధి",
+
+    videoQuality: "వీడియో నాణ్యత",
+
+    downloadVideo:
+      "వీడియో డౌన్‌లోడ్ చేయండి",
+
+    starting: "ప్రారంభమవుతోంది...",
+
+    downloadAudio:
+      "ఆడియో డౌన్‌లోడ్ చేయండి",
+
+    downloadThumbnail:
+      "థంబ్‌నెయిల్ డౌన్‌లోడ్ చేయండి",
+
+    downloadingThumbnail:
+      "థంబ్‌నెయిల్ డౌన్‌లోడ్ అవుతోంది...",
+
+    clipDownload: "క్లిప్ డౌన్‌లోడ్",
+
+    clipDescription:
+      "వీడియోలో మీరు ఎంచుకున్న భాగాన్ని మాత్రమే డౌన్‌లోడ్ చేయండి.",
+
+    startTime: "ప్రారంభ సమయం",
+    endTime: "ముగింపు సమయం",
+
+    downloadClip:
+      "క్లిప్ డౌన్‌లోడ్ చేయండి",
+
+    cancel: "రద్దు చేయండి",
+
+    speed: "వేగం",
+    eta: "అంచనా సమయం",
+
+    idle: "నిష్క్రియంగా ఉంది",
+    downloading: "డౌన్‌లోడ్ అవుతోంది",
+    completed: "పూర్తయింది",
+    error: "లోపం",
+
+    pleaseEnterUrl:
+      "దయచేసి YouTube URL నమోదు చేయండి",
+
+    thumbnailNotAvailable:
+      "థంబ్‌నెయిల్ అందుబాటులో లేదు",
+
+    pleaseSelectQuality:
+      "దయచేసి వీడియో నాణ్యతను ఎంచుకోండి",
+
+    videoDownloadStarted:
+      "వీడియో డౌన్‌లోడ్ ప్రారంభమైంది",
+
+    videoDownloadedSuccessfully:
+      "వీడియో విజయవంతంగా డౌన్‌లోడ్ అయింది",
+
+    audioDownloadStarted:
+      "ఆడియో డౌన్‌లోడ్ ప్రారంభమైంది",
+
+    audioDownloadedSuccessfully:
+      "ఆడియో విజయవంతంగా డౌన్‌లోడ్ అయింది",
+
+    thumbnailDownloadedSuccessfully:
+      "థంబ్‌నెయిల్ విజయవంతంగా డౌన్‌లోడ్ అయింది",
+
+    clipDownloadStarted:
+      "క్లిప్ డౌన్‌లోడ్ ప్రారంభమైంది",
+
+    clipDownloadedSuccessfully:
+      "క్లిప్ విజయవంతంగా డౌన్‌లోడ్ అయింది",
+
+    videoDownloadCancelled:
+      "వీడియో డౌన్‌లోడ్ రద్దు చేయబడింది",
+
+    audioDownloadCancelled:
+      "ఆడియో డౌన్‌లోడ్ రద్దు చేయబడింది",
+
+    clipDownloadCancelled:
+      "క్లిప్ డౌన్‌లోడ్ రద్దు చేయబడింది",
+
+    videoDownloadStuck:
+      "వీడియో డౌన్‌లోడ్ నిలిచిపోయినట్లు కనిపిస్తోంది. దయచేసి Spring Boot console చూడండి.",
+
+    audioDownloadStuck:
+      "ఆడియో డౌన్‌లోడ్ నిలిచిపోయినట్లు కనిపిస్తోంది.",
+
+    clipDownloadStuck:
+      "క్లిప్ డౌన్‌లోడ్ నిలిచిపోయినట్లు కనిపిస్తోంది.",
+
+    startEndRequired:
+      "ప్రారంభ సమయం మరియు ముగింపు సమయం అవసరం",
+
+    invalidVideoQuality:
+      "వీడియో నాణ్యత చెల్లదు",
+
+    language: "భాష",
+  },
+
+
+  // ============================================================
+  // TAMIL
+  // ============================================================
+
+  ta: {
+    languageName: "தமிழ்",
+
+    appTitle: "MediaMeld",
+    appSubtitle: "YouTube வீடியோ பதிவிறக்கி",
+
+    pasteUrl: "YouTube URL-ஐ இங்கே ஒட்டவும்...",
+    analyze: "பகுப்பாய்வு செய்க",
+    analyzing: "பகுப்பாய்வு செய்கிறது...",
+
+    videoAnalyzed:
+      "வீடியோ வெற்றிகரமாக பகுப்பாய்வு செய்யப்பட்டது",
+
+    channel: "சேனல்",
+    unknown: "தெரியவில்லை",
+    duration: "கால அளவு",
+
+    videoQuality: "வீடியோ தரம்",
+
+    downloadVideo: "வீடியோவை பதிவிறக்கவும்",
+    starting: "தொடங்குகிறது...",
+
+    downloadAudio: "ஆடியோவை பதிவிறக்கவும்",
+
+    downloadThumbnail:
+      "சிறுபடத்தை பதிவிறக்கவும்",
+
+    downloadingThumbnail:
+      "சிறுபடம் பதிவிறக்கப்படுகிறது...",
+
+    clipDownload: "கிளிப் பதிவிறக்கம்",
+
+    clipDescription:
+      "வீடியோவில் நீங்கள் தேர்ந்தெடுத்த பகுதியை மட்டும் பதிவிறக்கவும்.",
+
+    startTime: "தொடக்க நேரம்",
+    endTime: "முடிவு நேரம்",
+
+    downloadClip: "கிளிப்பை பதிவிறக்கவும்",
+
+    cancel: "ரத்து செய்",
+
+    speed: "வேகம்",
+    eta: "மதிப்பிடப்பட்ட நேரம்",
+
+    idle: "செயலற்றது",
+    downloading: "பதிவிறக்கப்படுகிறது",
+    completed: "முடிந்தது",
+    error: "பிழை",
+
+    pleaseEnterUrl:
+      "YouTube URL-ஐ உள்ளிடவும்",
+
+    thumbnailNotAvailable:
+      "சிறுபடம் கிடைக்கவில்லை",
+
+    pleaseSelectQuality:
+      "வீடியோ தரத்தைத் தேர்ந்தெடுக்கவும்",
+
+    videoDownloadStarted:
+      "வீடியோ பதிவிறக்கம் தொடங்கியது",
+
+    videoDownloadedSuccessfully:
+      "வீடியோ வெற்றிகரமாக பதிவிறக்கப்பட்டது",
+
+    audioDownloadStarted:
+      "ஆடியோ பதிவிறக்கம் தொடங்கியது",
+
+    audioDownloadedSuccessfully:
+      "ஆடியோ வெற்றிகரமாக பதிவிறக்கப்பட்டது",
+
+    thumbnailDownloadedSuccessfully:
+      "சிறுபடம் வெற்றிகரமாக பதிவிறக்கப்பட்டது",
+
+    clipDownloadStarted:
+      "கிளிப் பதிவிறக்கம் தொடங்கியது",
+
+    clipDownloadedSuccessfully:
+      "கிளிப் வெற்றிகரமாக பதிவிறக்கப்பட்டது",
+
+    videoDownloadCancelled:
+      "வீடியோ பதிவிறக்கம் ரத்து செய்யப்பட்டது",
+
+    audioDownloadCancelled:
+      "ஆடியோ பதிவிறக்கம் ரத்து செய்யப்பட்டது",
+
+    clipDownloadCancelled:
+      "கிளிப் பதிவிறக்கம் ரத்து செய்யப்பட்டது",
+
+    videoDownloadStuck:
+      "வீடியோ பதிவிறக்கம் சிக்கியுள்ளதாக தெரிகிறது. Spring Boot console-ஐ பார்க்கவும்.",
+
+    audioDownloadStuck:
+      "ஆடியோ பதிவிறக்கம் சிக்கியுள்ளதாக தெரிகிறது.",
+
+    clipDownloadStuck:
+      "கிளிப் பதிவிறக்கம் சிக்கியுள்ளதாக தெரிகிறது.",
+
+    startEndRequired:
+      "தொடக்க மற்றும் முடிவு நேரம் தேவை",
+
+    invalidVideoQuality:
+      "தவறான வீடியோ தரம்",
+
+    language: "மொழி",
+  },
+
+
+  // ============================================================
+  // KANNADA
+  // ============================================================
+
+  kn: {
+    languageName: "ಕನ್ನಡ",
+
+    appTitle: "MediaMeld",
+    appSubtitle: "YouTube ವೀಡಿಯೊ ಡೌನ್‌ಲೋಡರ್",
+
+    pasteUrl:
+      "YouTube URL ಅನ್ನು ಇಲ್ಲಿ ಪೇಸ್ಟ್ ಮಾಡಿ...",
+
+    analyze: "ವಿಶ್ಲೇಷಿಸಿ",
+    analyzing: "ವಿಶ್ಲೇಷಿಸಲಾಗುತ್ತಿದೆ...",
+
+    videoAnalyzed:
+      "ವೀಡಿಯೊವನ್ನು ಯಶಸ್ವಿಯಾಗಿ ವಿಶ್ಲೇಷಿಸಲಾಗಿದೆ",
+
+    channel: "ಚಾನೆಲ್",
+    unknown: "ತಿಳಿದಿಲ್ಲ",
+    duration: "ಅವಧಿ",
+
+    videoQuality: "ವೀಡಿಯೊ ಗುಣಮಟ್ಟ",
+
+    downloadVideo:
+      "ವೀಡಿಯೊ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ",
+
+    starting: "ಪ್ರಾರಂಭವಾಗುತ್ತಿದೆ...",
+
+    downloadAudio:
+      "ಆಡಿಯೊ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ",
+
+    downloadThumbnail:
+      "ಥಂಬ್‌ನೇಲ್ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ",
+
+    downloadingThumbnail:
+      "ಥಂಬ್‌ನೇಲ್ ಡೌನ್‌ಲೋಡ್ ಆಗುತ್ತಿದೆ...",
+
+    clipDownload: "ಕ್ಲಿಪ್ ಡೌನ್‌ಲೋಡ್",
+
+    clipDescription:
+      "ವೀಡಿಯೊದ ನೀವು ಆಯ್ಕೆ ಮಾಡಿದ ಭಾಗವನ್ನು ಮಾತ್ರ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ.",
+
+    startTime: "ಪ್ರಾರಂಭದ ಸಮಯ",
+    endTime: "ಅಂತಿಮ ಸಮಯ",
+
+    downloadClip:
+      "ಕ್ಲಿಪ್ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ",
+
+    cancel: "ರದ್ದುಮಾಡಿ",
+
+    speed: "ವೇಗ",
+    eta: "ಅಂದಾಜು ಸಮಯ",
+
+    idle: "ನಿಷ್ಕ್ರಿಯ",
+    downloading: "ಡೌನ್‌ಲೋಡ್ ಆಗುತ್ತಿದೆ",
+    completed: "ಪೂರ್ಣಗೊಂಡಿದೆ",
+    error: "ದೋಷ",
+
+    pleaseEnterUrl:
+      "ದಯವಿಟ್ಟು YouTube URL ನಮೂದಿಸಿ",
+
+    thumbnailNotAvailable:
+      "ಥಂಬ್‌ನೇಲ್ ಲಭ್ಯವಿಲ್ಲ",
+
+    pleaseSelectQuality:
+      "ದಯವಿಟ್ಟು ವೀಡಿಯೊ ಗುಣಮಟ್ಟವನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+
+    videoDownloadStarted:
+      "ವೀಡಿಯೊ ಡೌನ್‌ಲೋಡ್ ಪ್ರಾರಂಭವಾಗಿದೆ",
+
+    videoDownloadedSuccessfully:
+      "ವೀಡಿಯೊ ಯಶಸ್ವಿಯಾಗಿ ಡೌನ್‌ಲೋಡ್ ಆಗಿದೆ",
+
+    audioDownloadStarted:
+      "ಆಡಿಯೊ ಡೌನ್‌ಲೋಡ್ ಪ್ರಾರಂಭವಾಗಿದೆ",
+
+    audioDownloadedSuccessfully:
+      "ಆಡಿಯೊ ಯಶಸ್ವಿಯಾಗಿ ಡೌನ್‌ಲೋಡ್ ಆಗಿದೆ",
+
+    thumbnailDownloadedSuccessfully:
+      "ಥಂಬ್‌ನೇಲ್ ಯಶಸ್ವಿಯಾಗಿ ಡೌನ್‌ಲೋಡ್ ಆಗಿದೆ",
+
+    clipDownloadStarted:
+      "ಕ್ಲಿಪ್ ಡೌನ್‌ಲೋಡ್ ಪ್ರಾರಂಭವಾಗಿದೆ",
+
+    clipDownloadedSuccessfully:
+      "ಕ್ಲಿಪ್ ಯಶಸ್ವಿಯಾಗಿ ಡೌನ್‌ಲೋಡ್ ಆಗಿದೆ",
+
+    videoDownloadCancelled:
+      "ವೀಡಿಯೊ ಡೌನ್‌ಲೋಡ್ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ",
+
+    audioDownloadCancelled:
+      "ಆಡಿಯೊ ಡೌನ್‌ಲೋಡ್ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ",
+
+    clipDownloadCancelled:
+      "ಕ್ಲಿಪ್ ಡೌನ್‌ಲೋಡ್ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ",
+
+    videoDownloadStuck:
+      "ವೀಡಿಯೊ ಡೌನ್‌ಲೋಡ್ ಸ್ಥಗಿತಗೊಂಡಂತೆ ಕಾಣುತ್ತದೆ. Spring Boot console ಪರಿಶೀಲಿಸಿ.",
+
+    audioDownloadStuck:
+      "ಆಡಿಯೊ ಡೌನ್‌ಲೋಡ್ ಸ್ಥಗಿತಗೊಂಡಂತೆ ಕಾಣುತ್ತದೆ.",
+
+    clipDownloadStuck:
+      "ಕ್ಲಿಪ್ ಡೌನ್‌ಲೋಡ್ ಸ್ಥಗಿತಗೊಂಡಂತೆ ಕಾಣುತ್ತದೆ.",
+
+    startEndRequired:
+      "ಪ್ರಾರಂಭ ಮತ್ತು ಅಂತಿಮ ಸಮಯ ಅಗತ್ಯವಿದೆ",
+
+    invalidVideoQuality:
+      "ಅಮಾನ್ಯ ವೀಡಿಯೊ ಗುಣಮಟ್ಟ",
+
+    language: "ಭಾಷೆ",
+  },
+
+
+  // ============================================================
+  // MALAYALAM
+  // ============================================================
+
+  ml: {
+    languageName: "മലയാളം",
+
+    appTitle: "MediaMeld",
+    appSubtitle: "YouTube വീഡിയോ ഡൗൺലോഡർ",
+
+    pasteUrl:
+      "YouTube URL ഇവിടെ പേസ്റ്റ് ചെയ്യുക...",
+
+    analyze: "വിശകലനം ചെയ്യുക",
+    analyzing: "വിശകലനം ചെയ്യുന്നു...",
+
+    videoAnalyzed:
+      "വീഡിയോ വിജയകരമായി വിശകലനം ചെയ്തു",
+
+    channel: "ചാനൽ",
+    unknown: "അജ്ഞാതം",
+    duration: "ദൈർഘ്യം",
+
+    videoQuality: "വീഡിയോ നിലവാരം",
+
+    downloadVideo:
+      "വീഡിയോ ഡൗൺലോഡ് ചെയ്യുക",
+
+    starting: "ആരംഭിക്കുന്നു...",
+
+    downloadAudio:
+      "ഓഡിയോ ഡൗൺലോഡ് ചെയ്യുക",
+
+    downloadThumbnail:
+      "തമ്പ്‌നെയിൽ ഡൗൺലോഡ് ചെയ്യുക",
+
+    downloadingThumbnail:
+      "തമ്പ്‌നെയിൽ ഡൗൺലോഡ് ചെയ്യുന്നു...",
+
+    clipDownload: "ക്ലിപ്പ് ഡൗൺലോഡ്",
+
+    clipDescription:
+      "വീഡിയോയിലെ നിങ്ങൾ തിരഞ്ഞെടുത്ത ഭാഗം മാത്രം ഡൗൺലോഡ് ചെയ്യുക.",
+
+    startTime: "ആരംഭ സമയം",
+    endTime: "അവസാന സമയം",
+
+    downloadClip:
+      "ക്ലിപ്പ് ഡൗൺലോഡ് ചെയ്യുക",
+
+    cancel: "റദ്ദാക്കുക",
+
+    speed: "വേഗത",
+    eta: "കണക്കാക്കിയ സമയം",
+
+    idle: "നിഷ്‌ക്രിയം",
+    downloading: "ഡൗൺലോഡ് ചെയ്യുന്നു",
+    completed: "പൂർത്തിയായി",
+    error: "പിശക്",
+
+    pleaseEnterUrl:
+      "ദയവായി YouTube URL നൽകുക",
+
+    thumbnailNotAvailable:
+      "തമ്പ്‌നെയിൽ ലഭ്യമല്ല",
+
+    pleaseSelectQuality:
+      "ദയവായി വീഡിയോ നിലവാരം തിരഞ്ഞെടുക്കുക",
+
+    videoDownloadStarted:
+      "വീഡിയോ ഡൗൺലോഡ് ആരംഭിച്ചു",
+
+    videoDownloadedSuccessfully:
+      "വീഡിയോ വിജയകരമായി ഡൗൺലോഡ് ചെയ്തു",
+
+    audioDownloadStarted:
+      "ഓഡിയോ ഡൗൺലോഡ് ആരംഭിച്ചു",
+
+    audioDownloadedSuccessfully:
+      "ഓഡിയോ വിജയകരമായി ഡൗൺലോഡ് ചെയ്തു",
+
+    thumbnailDownloadedSuccessfully:
+      "തമ്പ്‌നെയിൽ വിജയകരമായി ഡൗൺലോഡ് ചെയ്തു",
+
+    clipDownloadStarted:
+      "ക്ലിപ്പ് ഡൗൺലോഡ് ആരംഭിച്ചു",
+
+    clipDownloadedSuccessfully:
+      "ക്ലിപ്പ് വിജയകരമായി ഡൗൺലോഡ് ചെയ്തു",
+
+    videoDownloadCancelled:
+      "വീഡിയോ ഡൗൺലോഡ് റദ്ദാക്കി",
+
+    audioDownloadCancelled:
+      "ഓഡിയോ ഡൗൺലോഡ് റദ്ദാക്കി",
+
+    clipDownloadCancelled:
+      "ക്ലിപ്പ് ഡൗൺലോഡ് റദ്ദാക്കി",
+
+    videoDownloadStuck:
+      "വീഡിയോ ഡൗൺലോഡ് തടസ്സപ്പെട്ടതായി തോന്നുന്നു. Spring Boot console പരിശോധിക്കുക.",
+
+    audioDownloadStuck:
+      "ഓഡിയോ ഡൗൺലോഡ് തടസ്സപ്പെട്ടതായി തോന്നുന്നു.",
+
+    clipDownloadStuck:
+      "ക്ലിപ്പ് ഡൗൺലോഡ് തടസ്സപ്പെട്ടതായി തോന്നുന്നു.",
+
+    startEndRequired:
+      "ആരംഭ സമയവും അവസാന സമയവും ആവശ്യമാണ്",
+
+    invalidVideoQuality:
+      "അസാധുവായ വീഡിയോ നിലവാരം",
+
+    language: "ഭാഷ",
+  },
+
+
+  // ============================================================
+  // BENGALI
+  // ============================================================
+
+  bn: {
+    languageName: "বাংলা",
+
+    appTitle: "MediaMeld",
+    appSubtitle: "YouTube ভিডিও ডাউনলোডার",
+
+    pasteUrl:
+      "YouTube URL এখানে পেস্ট করুন...",
+
+    analyze: "বিশ্লেষণ করুন",
+    analyzing: "বিশ্লেষণ করা হচ্ছে...",
+
+    videoAnalyzed:
+      "ভিডিও সফলভাবে বিশ্লেষণ করা হয়েছে",
+
+    channel: "চ্যানেল",
+    unknown: "অজানা",
+    duration: "সময়কাল",
+
+    videoQuality: "ভিডিওর মান",
+
+    downloadVideo:
+      "ভিডিও ডাউনলোড করুন",
+
+    starting: "শুরু হচ্ছে...",
+
+    downloadAudio:
+      "অডিও ডাউনলোড করুন",
+
+    downloadThumbnail:
+      "থাম্বনেইল ডাউনলোড করুন",
+
+    downloadingThumbnail:
+      "থাম্বনেইল ডাউনলোড হচ্ছে...",
+
+    clipDownload: "ক্লিপ ডাউনলোড",
+
+    clipDescription:
+      "ভিডিওর শুধুমাত্র নির্বাচিত অংশ ডাউনলোড করুন।",
+
+    startTime: "শুরুর সময়",
+    endTime: "শেষের সময়",
+
+    downloadClip:
+      "ক্লিপ ডাউনলোড করুন",
+
+    cancel: "বাতিল করুন",
+
+    speed: "গতি",
+    eta: "আনুমানিক সময়",
+
+    idle: "নিষ্ক্রিয়",
+    downloading: "ডাউনলোড হচ্ছে",
+    completed: "সম্পন্ন",
+    error: "ত্রুটি",
+
+    pleaseEnterUrl:
+      "দয়া করে YouTube URL লিখুন",
+
+    thumbnailNotAvailable:
+      "থাম্বনেইল পাওয়া যাচ্ছে না",
+
+    pleaseSelectQuality:
+      "দয়া করে ভিডিওর মান নির্বাচন করুন",
+
+    videoDownloadStarted:
+      "ভিডিও ডাউনলোড শুরু হয়েছে",
+
+    videoDownloadedSuccessfully:
+      "ভিডিও সফলভাবে ডাউনলোড হয়েছে",
+
+    audioDownloadStarted:
+      "অডিও ডাউনলোড শুরু হয়েছে",
+
+    audioDownloadedSuccessfully:
+      "অডিও সফলভাবে ডাউনলোড হয়েছে",
+
+    thumbnailDownloadedSuccessfully:
+      "থাম্বনেইল সফলভাবে ডাউনলোড হয়েছে",
+
+    clipDownloadStarted:
+      "ক্লিপ ডাউনলোড শুরু হয়েছে",
+
+    clipDownloadedSuccessfully:
+      "ক্লিপ সফলভাবে ডাউনলোড হয়েছে",
+
+    videoDownloadCancelled:
+      "ভিডিও ডাউনলোড বাতিল করা হয়েছে",
+
+    audioDownloadCancelled:
+      "অডিও ডাউনলোড বাতিল করা হয়েছে",
+
+    clipDownloadCancelled:
+      "ক্লিপ ডাউনলোড বাতিল করা হয়েছে",
+
+    videoDownloadStuck:
+      "ভিডিও ডাউনলোড আটকে গেছে বলে মনে হচ্ছে। Spring Boot console দেখুন।",
+
+    audioDownloadStuck:
+      "অডিও ডাউনলোড আটকে গেছে বলে মনে হচ্ছে।",
+
+    clipDownloadStuck:
+      "ক্লিপ ডাউনলোড আটকে গেছে বলে মনে হচ্ছে।",
+
+    startEndRequired:
+      "শুরুর এবং শেষের সময় প্রয়োজন",
+
+    invalidVideoQuality:
+      "অবৈধ ভিডিও মান",
+
+    language: "ভাষা",
+  },
+
+
+  // ============================================================
+  // MARATHI
+  // ============================================================
+
+  mr: {
+    languageName: "मराठी",
+
+    appTitle: "MediaMeld",
+    appSubtitle: "YouTube व्हिडिओ डाउनलोडर",
+
+    pasteUrl:
+      "YouTube URL येथे पेस्ट करा...",
+
+    analyze: "विश्लेषण करा",
+    analyzing: "विश्लेषण केले जात आहे...",
+
+    videoAnalyzed:
+      "व्हिडिओचे यशस्वीरित्या विश्लेषण झाले",
+
+    channel: "चॅनेल",
+    unknown: "अज्ञात",
+    duration: "कालावधी",
+
+    videoQuality: "व्हिडिओ गुणवत्ता",
+
+    downloadVideo:
+      "व्हिडिओ डाउनलोड करा",
+
+    starting: "सुरू होत आहे...",
+
+    downloadAudio:
+      "ऑडिओ डाउनलोड करा",
+
+    downloadThumbnail:
+      "थंबनेल डाउनलोड करा",
+
+    downloadingThumbnail:
+      "थंबनेल डाउनलोड होत आहे...",
+
+    clipDownload: "क्लिप डाउनलोड",
+
+    clipDescription:
+      "व्हिडिओचा फक्त निवडलेला भाग डाउनलोड करा.",
+
+    startTime: "सुरुवातीची वेळ",
+    endTime: "शेवटची वेळ",
+
+    downloadClip:
+      "क्लिप डाउनलोड करा",
+
+    cancel: "रद्द करा",
+
+    speed: "वेग",
+    eta: "अंदाजे वेळ",
+
+    idle: "निष्क्रिय",
+    downloading: "डाउनलोड होत आहे",
+    completed: "पूर्ण झाले",
+    error: "त्रुटी",
+
+    pleaseEnterUrl:
+      "कृपया YouTube URL प्रविष्ट करा",
+
+    thumbnailNotAvailable:
+      "थंबनेल उपलब्ध नाही",
+
+    pleaseSelectQuality:
+      "कृपया व्हिडिओ गुणवत्ता निवडा",
+
+    videoDownloadStarted:
+      "व्हिडिओ डाउनलोड सुरू झाले",
+
+    videoDownloadedSuccessfully:
+      "व्हिडिओ यशस्वीरित्या डाउनलोड झाला",
+
+    audioDownloadStarted:
+      "ऑडिओ डाउनलोड सुरू झाले",
+
+    audioDownloadedSuccessfully:
+      "ऑडिओ यशस्वीरित्या डाउनलोड झाला",
+
+    thumbnailDownloadedSuccessfully:
+      "थंबनेल यशस्वीरित्या डाउनलोड झाले",
+
+    clipDownloadStarted:
+      "क्लिप डाउनलोड सुरू झाले",
+
+    clipDownloadedSuccessfully:
+      "क्लिप यशस्वीरित्या डाउनलोड झाली",
+
+    videoDownloadCancelled:
+      "व्हिडिओ डाउनलोड रद्द केले",
+
+    audioDownloadCancelled:
+      "ऑडिओ डाउनलोड रद्द केले",
+
+    clipDownloadCancelled:
+      "क्लिप डाउनलोड रद्द केली",
+
+    videoDownloadStuck:
+      "व्हिडिओ डाउनलोड अडकले आहे असे दिसते. Spring Boot console तपासा.",
+
+    audioDownloadStuck:
+      "ऑडिओ डाउनलोड अडकले आहे असे दिसते.",
+
+    clipDownloadStuck:
+      "क्लिप डाउनलोड अडकली आहे असे दिसते.",
+
+    startEndRequired:
+      "सुरुवातीची आणि शेवटची वेळ आवश्यक आहे",
+
+    invalidVideoQuality:
+      "अवैध व्हिडिओ गुणवत्ता",
+
+    language: "भाषा",
+  },
+
+
+  // ============================================================
+  // GUJARATI
+  // ============================================================
+
+  gu: {
+    languageName: "ગુજરાતી",
+
+    appTitle: "MediaMeld",
+    appSubtitle: "YouTube વિડિયો ડાઉનલોડર",
+
+    pasteUrl:
+      "YouTube URL અહીં પેસ્ટ કરો...",
+
+    analyze: "વિશ્લેષણ કરો",
+    analyzing: "વિશ્લેષણ થઈ રહ્યું છે...",
+
+    videoAnalyzed:
+      "વિડિયોનું સફળતાપૂર્વક વિશ્લેષણ થયું",
+
+    channel: "ચેનલ",
+    unknown: "અજ્ઞાત",
+    duration: "સમયગાળો",
+
+    videoQuality: "વિડિયો ગુણવત્તા",
+
+    downloadVideo:
+      "વિડિયો ડાઉનલોડ કરો",
+
+    starting: "શરૂ થઈ રહ્યું છે...",
+
+    downloadAudio:
+      "ઑડિયો ડાઉનલોડ કરો",
+
+    downloadThumbnail:
+      "થંબનેલ ડાઉનલોડ કરો",
+
+    downloadingThumbnail:
+      "થંબનેલ ડાઉનલોડ થઈ રહ્યું છે...",
+
+    clipDownload: "ક્લિપ ડાઉનલોડ",
+
+    clipDescription:
+      "વિડિયોના માત્ર પસંદ કરેલા ભાગને ડાઉનલોડ કરો.",
+
+    startTime: "શરૂઆતનો સમય",
+    endTime: "અંતનો સમય",
+
+    downloadClip:
+      "ક્લિપ ડાઉનલોડ કરો",
+
+    cancel: "રદ કરો",
+
+    speed: "ઝડપ",
+    eta: "અંદાજિત સમય",
+
+    idle: "નિષ્ક્રિય",
+    downloading: "ડાઉનલોડ થઈ રહ્યું છે",
+    completed: "પૂર્ણ થયું",
+    error: "ભૂલ",
+
+    pleaseEnterUrl:
+      "કૃપા કરીને YouTube URL દાખલ કરો",
+
+    thumbnailNotAvailable:
+      "થંબનેલ ઉપલબ્ધ નથી",
+
+    pleaseSelectQuality:
+      "કૃપા કરીને વિડિયો ગુણવત્તા પસંદ કરો",
+
+    videoDownloadStarted:
+      "વિડિયો ડાઉનલોડ શરૂ થયું",
+
+    videoDownloadedSuccessfully:
+      "વિડિયો સફળતાપૂર્વક ડાઉનલોડ થયો",
+
+    audioDownloadStarted:
+      "ઑડિયો ડાઉનલોડ શરૂ થયું",
+
+    audioDownloadedSuccessfully:
+      "ઑડિયો સફળતાપૂર્વક ડાઉનલોડ થયો",
+
+    thumbnailDownloadedSuccessfully:
+      "થંબનેલ સફળતાપૂર્વક ડાઉનલોડ થયું",
+
+    clipDownloadStarted:
+      "ક્લિપ ડાઉનલોડ શરૂ થયું",
+
+    clipDownloadedSuccessfully:
+      "ક્લિપ સફળતાપૂર્વક ડાઉનલોડ થઈ",
+
+    videoDownloadCancelled:
+      "વિડિયો ડાઉનલોડ રદ કરવામાં આવ્યું",
+
+    audioDownloadCancelled:
+      "ઑડિયો ડાઉનલોડ રદ કરવામાં આવ્યું",
+
+    clipDownloadCancelled:
+      "ક્લિપ ડાઉનલોડ રદ કરવામાં આવી",
+
+    videoDownloadStuck:
+      "વિડિયો ડાઉનલોડ અટકેલું લાગે છે. Spring Boot console તપાસો.",
+
+    audioDownloadStuck:
+      "ઑડિયો ડાઉનલોડ અટકેલું લાગે છે.",
+
+    clipDownloadStuck:
+      "ક્લિપ ડાઉનલોડ અટકેલી લાગે છે.",
+
+    startEndRequired:
+      "શરૂઆત અને અંતનો સમય જરૂરી છે",
+
+    invalidVideoQuality:
+      "અમાન્ય વિડિયો ગુણવત્તા",
+
+    language: "ભાષા",
+  },
+
+
+  // ============================================================
+  // PUNJABI
+  // ============================================================
+
+  pa: {
+    languageName: "ਪੰਜਾਬੀ",
+
+    appTitle: "MediaMeld",
+    appSubtitle: "YouTube ਵੀਡੀਓ ਡਾਊਨਲੋਡਰ",
+
+    pasteUrl:
+      "YouTube URL ਇੱਥੇ ਪੇਸਟ ਕਰੋ...",
+
+    analyze: "ਵਿਸ਼ਲੇਸ਼ਣ ਕਰੋ",
+    analyzing: "ਵਿਸ਼ਲੇਸ਼ਣ ਹੋ ਰਿਹਾ ਹੈ...",
+
+    videoAnalyzed:
+      "ਵੀਡੀਓ ਦਾ ਸਫਲਤਾਪੂਰਵਕ ਵਿਸ਼ਲੇਸ਼ਣ ਕੀਤਾ ਗਿਆ",
+
+    channel: "ਚੈਨਲ",
+    unknown: "ਅਣਜਾਣ",
+    duration: "ਮਿਆਦ",
+
+    videoQuality: "ਵੀਡੀਓ ਗੁਣਵੱਤਾ",
+
+    downloadVideo:
+      "ਵੀਡੀਓ ਡਾਊਨਲੋਡ ਕਰੋ",
+
+    starting: "ਸ਼ੁਰੂ ਹੋ ਰਿਹਾ ਹੈ...",
+
+    downloadAudio:
+      "ਆਡੀਓ ਡਾਊਨਲੋਡ ਕਰੋ",
+
+    downloadThumbnail:
+      "ਥੰਬਨੇਲ ਡਾਊਨਲੋਡ ਕਰੋ",
+
+    downloadingThumbnail:
+      "ਥੰਬਨੇਲ ਡਾਊਨਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...",
+
+    clipDownload: "ਕਲਿੱਪ ਡਾਊਨਲੋਡ",
+
+    clipDescription:
+      "ਵੀਡੀਓ ਦੇ ਸਿਰਫ਼ ਚੁਣੇ ਹੋਏ ਹਿੱਸੇ ਨੂੰ ਡਾਊਨਲੋਡ ਕਰੋ।",
+
+    startTime: "ਸ਼ੁਰੂਆਤੀ ਸਮਾਂ",
+    endTime: "ਅੰਤ ਦਾ ਸਮਾਂ",
+
+    downloadClip:
+      "ਕਲਿੱਪ ਡਾਊਨਲੋਡ ਕਰੋ",
+
+    cancel: "ਰੱਦ ਕਰੋ",
+
+    speed: "ਗਤੀ",
+    eta: "ਅੰਦਾਜ਼ਨ ਸਮਾਂ",
+
+    idle: "ਨਿਸ਼ਕਿਰਿਆ",
+    downloading: "ਡਾਊਨਲੋਡ ਹੋ ਰਿਹਾ ਹੈ",
+    completed: "ਪੂਰਾ ਹੋਇਆ",
+    error: "ਗਲਤੀ",
+
+    pleaseEnterUrl:
+      "ਕਿਰਪਾ ਕਰਕੇ YouTube URL ਦਾਖਲ ਕਰੋ",
+
+    thumbnailNotAvailable:
+      "ਥੰਬਨੇਲ ਉਪਲਬਧ ਨਹੀਂ ਹੈ",
+
+    pleaseSelectQuality:
+      "ਕਿਰਪਾ ਕਰਕੇ ਵੀਡੀਓ ਗੁਣਵੱਤਾ ਚੁਣੋ",
+
+    videoDownloadStarted:
+      "ਵੀਡੀਓ ਡਾਊਨਲੋਡ ਸ਼ੁਰੂ ਹੋ ਗਿਆ ਹੈ",
+
+    videoDownloadedSuccessfully:
+      "ਵੀਡੀਓ ਸਫਲਤਾਪੂਰਵਕ ਡਾਊਨਲੋਡ ਹੋ ਗਿਆ",
+
+    audioDownloadStarted:
+      "ਆਡੀਓ ਡਾਊਨਲੋਡ ਸ਼ੁਰੂ ਹੋ ਗਿਆ ਹੈ",
+
+    audioDownloadedSuccessfully:
+      "ਆਡੀਓ ਸਫਲਤਾਪੂਰਵਕ ਡਾਊਨਲੋਡ ਹੋ ਗਿਆ",
+
+    thumbnailDownloadedSuccessfully:
+      "ਥੰਬਨੇਲ ਸਫਲਤਾਪੂਰਵਕ ਡਾਊਨਲੋਡ ਹੋ ਗਿਆ",
+
+    clipDownloadStarted:
+      "ਕਲਿੱਪ ਡਾਊਨਲੋਡ ਸ਼ੁਰੂ ਹੋ ਗਿਆ ਹੈ",
+
+    clipDownloadedSuccessfully:
+      "ਕਲਿੱਪ ਸਫਲਤਾਪੂਰਵਕ ਡਾਊਨਲੋਡ ਹੋ ਗਈ",
+
+    videoDownloadCancelled:
+      "ਵੀਡੀਓ ਡਾਊਨਲੋਡ ਰੱਦ ਕਰ ਦਿੱਤਾ ਗਿਆ",
+
+    audioDownloadCancelled:
+      "ਆਡੀਓ ਡਾਊਨਲੋਡ ਰੱਦ ਕਰ ਦਿੱਤਾ ਗਿਆ",
+
+    clipDownloadCancelled:
+      "ਕਲਿੱਪ ਡਾਊਨਲੋਡ ਰੱਦ ਕਰ ਦਿੱਤੀ ਗਈ",
+
+    videoDownloadStuck:
+      "ਵੀਡੀਓ ਡਾਊਨਲੋਡ ਅਟਕਿਆ ਹੋਇਆ ਲੱਗਦਾ ਹੈ। Spring Boot console ਦੇਖੋ।",
+
+    audioDownloadStuck:
+      "ਆਡੀਓ ਡਾਊਨਲੋਡ ਅਟਕਿਆ ਹੋਇਆ ਲੱਗਦਾ ਹੈ।",
+
+    clipDownloadStuck:
+      "ਕਲਿੱਪ ਡਾਊਨਲੋਡ ਅਟਕੀ ਹੋਈ ਲੱਗਦੀ ਹੈ।",
+
+    startEndRequired:
+      "ਸ਼ੁਰੂਆਤੀ ਅਤੇ ਅੰਤ ਦਾ ਸਮਾਂ ਲੋੜੀਂਦਾ ਹੈ",
+
+    invalidVideoQuality:
+      "ਅਵੈਧ ਵੀਡੀਓ ਗੁਣਵੱਤਾ",
+
+    language: "ਭਾਸ਼ਾ",
+  },
+
+
+  // ============================================================
+  // URDU
+  // ============================================================
+
+  ur: {
+    languageName: "اردو",
+
+    appTitle: "MediaMeld",
+    appSubtitle: "YouTube ویڈیو ڈاؤن لوڈر",
+
+    pasteUrl:
+      "YouTube URL یہاں پیسٹ کریں...",
+
+    analyze: "تجزیہ کریں",
+    analyzing: "تجزیہ کیا جا رہا ہے...",
+
+    videoAnalyzed:
+      "ویڈیو کا کامیابی سے تجزیہ کیا گیا",
+
+    channel: "چینل",
+    unknown: "نامعلوم",
+    duration: "دورانیہ",
+
+    videoQuality: "ویڈیو کوالٹی",
+
+    downloadVideo:
+      "ویڈیو ڈاؤن لوڈ کریں",
+
+    starting: "شروع ہو رہا ہے...",
+
+    downloadAudio:
+      "آڈیو ڈاؤن لوڈ کریں",
+
+    downloadThumbnail:
+      "تھمب نیل ڈاؤن لوڈ کریں",
+
+    downloadingThumbnail:
+      "تھمب نیل ڈاؤن لوڈ ہو رہا ہے...",
+
+    clipDownload: "کلپ ڈاؤن لوڈ",
+
+    clipDescription:
+      "ویڈیو کا صرف منتخب حصہ ڈاؤن لوڈ کریں۔",
+
+    startTime: "شروع ہونے کا وقت",
+    endTime: "اختتام کا وقت",
+
+    downloadClip:
+      "کلپ ڈاؤن لوڈ کریں",
+
+    cancel: "منسوخ کریں",
+
+    speed: "رفتار",
+    eta: "متوقع وقت",
+
+    idle: "غیر فعال",
+    downloading: "ڈاؤن لوڈ ہو رہا ہے",
+    completed: "مکمل",
+    error: "خرابی",
+
+    pleaseEnterUrl:
+      "براہ کرم YouTube URL درج کریں",
+
+    thumbnailNotAvailable:
+      "تھمب نیل دستیاب نہیں ہے",
+
+    pleaseSelectQuality:
+      "براہ کرم ویڈیو کوالٹی منتخب کریں",
+
+    videoDownloadStarted:
+      "ویڈیو ڈاؤن لوڈ شروع ہو گیا ہے",
+
+    videoDownloadedSuccessfully:
+      "ویڈیو کامیابی سے ڈاؤن لوڈ ہو گئی",
+
+    audioDownloadStarted:
+      "آڈیو ڈاؤن لوڈ شروع ہو گیا ہے",
+
+    audioDownloadedSuccessfully:
+      "آڈیو کامیابی سے ڈاؤن لوڈ ہو گئی",
+
+    thumbnailDownloadedSuccessfully:
+      "تھمب نیل کامیابی سے ڈاؤن لوڈ ہو گیا",
+
+    clipDownloadStarted:
+      "کلپ ڈاؤن لوڈ شروع ہو گیا ہے",
+
+    clipDownloadedSuccessfully:
+      "کلپ کامیابی سے ڈاؤن لوڈ ہو گئی",
+
+    videoDownloadCancelled:
+      "ویڈیو ڈاؤن لوڈ منسوخ کر دیا گیا",
+
+    audioDownloadCancelled:
+      "آڈیو ڈاؤن لوڈ منسوخ کر دیا گیا",
+
+    clipDownloadCancelled:
+      "کلپ ڈاؤن لوڈ منسوخ کر دی گئی",
+
+    videoDownloadStuck:
+      "ویڈیو ڈاؤن لوڈ رکا ہوا لگتا ہے۔ Spring Boot console چیک کریں۔",
+
+    audioDownloadStuck:
+      "آڈیو ڈاؤن لوڈ رکا ہوا لگتا ہے۔",
+
+    clipDownloadStuck:
+      "کلپ ڈاؤن لوڈ رکی ہوئی لگتی ہے۔",
+
+    startEndRequired:
+      "شروع اور اختتام کا وقت ضروری ہے",
+
+    invalidVideoQuality:
+      "غلط ویڈیو کوالٹی",
+
+    language: "زبان",
+  },
+
+
+  // ============================================================
+  // FRENCH
+  // ============================================================
+
+  fr: {
+    languageName: "Français",
+
+    appTitle: "MediaMeld",
+    appSubtitle: "Téléchargeur de vidéos YouTube",
+
+    pasteUrl:
+      "Collez l'URL YouTube...",
+
+    analyze: "Analyser",
+    analyzing: "Analyse en cours...",
+
+    videoAnalyzed:
+      "Vidéo analysée avec succès",
+
+    channel: "Chaîne",
+    unknown: "Inconnu",
+    duration: "Durée",
+
+    videoQuality: "Qualité vidéo",
+
+    downloadVideo:
+      "Télécharger la vidéo",
+
+    starting: "Démarrage...",
+
+    downloadAudio:
+      "Télécharger l'audio",
+
+    downloadThumbnail:
+      "Télécharger la miniature",
+
+    downloadingThumbnail:
+      "Téléchargement de la miniature...",
+
+    clipDownload: "Télécharger un clip",
+
+    clipDescription:
+      "Téléchargez uniquement la partie sélectionnée de la vidéo.",
+
+    startTime: "Heure de début",
+    endTime: "Heure de fin",
+
+    downloadClip:
+      "Télécharger le clip",
+
+    cancel: "Annuler",
+
+    speed: "Vitesse",
+    eta: "Temps restant",
+
+    idle: "INACTIF",
+    downloading: "TÉLÉCHARGEMENT",
+    completed: "TERMINÉ",
+    error: "ERREUR",
+
+    pleaseEnterUrl:
+      "Veuillez entrer une URL YouTube",
+
+    thumbnailNotAvailable:
+      "Miniature non disponible",
+
+    pleaseSelectQuality:
+      "Veuillez sélectionner la qualité vidéo",
+
+    videoDownloadStarted:
+      "Téléchargement de la vidéo commencé",
+
+    videoDownloadedSuccessfully:
+      "Vidéo téléchargée avec succès",
+
+    audioDownloadStarted:
+      "Téléchargement audio commencé",
+
+    audioDownloadedSuccessfully:
+      "Audio téléchargé avec succès",
+
+    thumbnailDownloadedSuccessfully:
+      "Miniature téléchargée avec succès",
+
+    clipDownloadStarted:
+      "Téléchargement du clip commencé",
+
+    clipDownloadedSuccessfully:
+      "Clip téléchargé avec succès",
+
+    videoDownloadCancelled:
+      "Téléchargement de la vidéo annulé",
+
+    audioDownloadCancelled:
+      "Téléchargement audio annulé",
+
+    clipDownloadCancelled:
+      "Téléchargement du clip annulé",
+
+    videoDownloadStuck:
+      "Le téléchargement de la vidéo semble bloqué. Vérifiez la console Spring Boot.",
+
+    audioDownloadStuck:
+      "Le téléchargement audio semble bloqué.",
+
+    clipDownloadStuck:
+      "Le téléchargement du clip semble bloqué.",
+
+    startEndRequired:
+      "L'heure de début et de fin est requise",
+
+    invalidVideoQuality:
+      "Qualité vidéo invalide",
+
+    language: "Langue",
+  },
+
+
+  // ============================================================
+  // SPANISH
+  // ============================================================
+
+  es: {
+    languageName: "Español",
+
+    appTitle: "MediaMeld",
+    appSubtitle: "Descargador de videos de YouTube",
+
+    pasteUrl:
+      "Pega la URL de YouTube...",
+
+    analyze: "Analizar",
+    analyzing: "Analizando...",
+
+    videoAnalyzed:
+      "Video analizado correctamente",
+
+    channel: "Canal",
+    unknown: "Desconocido",
+    duration: "Duración",
+
+    videoQuality: "Calidad del video",
+
+    downloadVideo:
+      "Descargar video",
+
+    starting: "Iniciando...",
+
+    downloadAudio:
+      "Descargar audio",
+
+    downloadThumbnail:
+      "Descargar miniatura",
+
+    downloadingThumbnail:
+      "Descargando miniatura...",
+
+    clipDownload: "Descargar clip",
+
+    clipDescription:
+      "Descarga solo la parte seleccionada del video.",
+
+    startTime: "Hora de inicio",
+    endTime: "Hora de finalización",
+
+    downloadClip:
+      "Descargar clip",
+
+    cancel: "Cancelar",
+
+    speed: "Velocidad",
+    eta: "Tiempo estimado",
+
+    idle: "INACTIVO",
+    downloading: "DESCARGANDO",
+    completed: "COMPLETADO",
+    error: "ERROR",
+
+    pleaseEnterUrl:
+      "Introduce una URL de YouTube",
+
+    thumbnailNotAvailable:
+      "La miniatura no está disponible",
+
+    pleaseSelectQuality:
+      "Selecciona la calidad del video",
+
+    videoDownloadStarted:
+      "La descarga del video ha comenzado",
+
+    videoDownloadedSuccessfully:
+      "Video descargado correctamente",
+
+    audioDownloadStarted:
+      "La descarga de audio ha comenzado",
+
+    audioDownloadedSuccessfully:
+      "Audio descargado correctamente",
+
+    thumbnailDownloadedSuccessfully:
+      "Miniatura descargada correctamente",
+
+    clipDownloadStarted:
+      "La descarga del clip ha comenzado",
+
+    clipDownloadedSuccessfully:
+      "Clip descargado correctamente",
+
+    videoDownloadCancelled:
+      "Descarga del video cancelada",
+
+    audioDownloadCancelled:
+      "Descarga de audio cancelada",
+
+    clipDownloadCancelled:
+      "Descarga del clip cancelada",
+
+    videoDownloadStuck:
+      "La descarga del video parece estar bloqueada. Comprueba la consola de Spring Boot.",
+
+    audioDownloadStuck:
+      "La descarga de audio parece estar bloqueada.",
+
+    clipDownloadStuck:
+      "La descarga del clip parece estar bloqueada.",
+
+    startEndRequired:
+      "Se requieren la hora de inicio y finalización",
+
+    invalidVideoQuality:
+      "Calidad de video no válida",
+
+    language: "Idioma",
+  },
+
+
+  // ============================================================
+  // GERMAN
+  // ============================================================
+
+  de: {
+    languageName: "Deutsch",
+
+    appTitle: "MediaMeld",
+    appSubtitle: "YouTube Video Downloader",
+
+    pasteUrl:
+      "YouTube-URL einfügen...",
+
+    analyze: "Analysieren",
+    analyzing: "Wird analysiert...",
+
+    videoAnalyzed:
+      "Video erfolgreich analysiert",
+
+    channel: "Kanal",
+    unknown: "Unbekannt",
+    duration: "Dauer",
+
+    videoQuality: "Videoqualität",
+
+    downloadVideo:
+      "Video herunterladen",
+
+    starting: "Wird gestartet...",
+
+    downloadAudio:
+      "Audio herunterladen",
+
+    downloadThumbnail:
+      "Miniaturbild herunterladen",
+
+    downloadingThumbnail:
+      "Miniaturbild wird heruntergeladen...",
+
+    clipDownload: "Clip herunterladen",
+
+    clipDescription:
+      "Laden Sie nur den ausgewählten Teil des Videos herunter.",
+
+    startTime: "Startzeit",
+    endTime: "Endzeit",
+
+    downloadClip:
+      "Clip herunterladen",
+
+    cancel: "Abbrechen",
+
+    speed: "Geschwindigkeit",
+    eta: "Geschätzte Zeit",
+
+    idle: "INAKTIV",
+    downloading: "WIRD HERUNTERGELADEN",
+    completed: "ABGESCHLOSSEN",
+    error: "FEHLER",
+
+    pleaseEnterUrl:
+      "Bitte geben Sie eine YouTube-URL ein",
+
+    thumbnailNotAvailable:
+      "Miniaturbild nicht verfügbar",
+
+    pleaseSelectQuality:
+      "Bitte wählen Sie eine Videoqualität",
+
+    videoDownloadStarted:
+      "Video-Download gestartet",
+
+    videoDownloadedSuccessfully:
+      "Video erfolgreich heruntergeladen",
+
+    audioDownloadStarted:
+      "Audio-Download gestartet",
+
+    audioDownloadedSuccessfully:
+      "Audio erfolgreich heruntergeladen",
+
+    thumbnailDownloadedSuccessfully:
+      "Miniaturbild erfolgreich heruntergeladen",
+
+    clipDownloadStarted:
+      "Clip-Download gestartet",
+
+    clipDownloadedSuccessfully:
+      "Clip erfolgreich heruntergeladen",
+
+    videoDownloadCancelled:
+      "Video-Download abgebrochen",
+
+    audioDownloadCancelled:
+      "Audio-Download abgebrochen",
+
+    clipDownloadCancelled:
+      "Clip-Download abgebrochen",
+
+    videoDownloadStuck:
+      "Der Video-Download scheint festzustecken. Überprüfen Sie die Spring Boot-Konsole.",
+
+    audioDownloadStuck:
+      "Der Audio-Download scheint festzustecken.",
+
+    clipDownloadStuck:
+      "Der Clip-Download scheint festzustecken.",
+
+    startEndRequired:
+      "Start- und Endzeit sind erforderlich",
+
+    invalidVideoQuality:
+      "Ungültige Videoqualität",
+
+    language: "Sprache",
+  },
+
+
+  // ============================================================
+  // ITALIAN
+  // ============================================================
+
+  it: {
+    languageName: "Italiano",
+
+    appTitle: "MediaMeld",
+    appSubtitle: "Downloader video YouTube",
+
+    pasteUrl:
+      "Incolla URL YouTube...",
+
+    analyze: "Analizza",
+    analyzing: "Analisi in corso...",
+
+    videoAnalyzed:
+      "Video analizzato con successo",
+
+    channel: "Canale",
+    unknown: "Sconosciuto",
+    duration: "Durata",
+
+    videoQuality: "Qualità video",
+
+    downloadVideo:
+      "Scarica video",
+
+    starting: "Avvio...",
+
+    downloadAudio:
+      "Scarica audio",
+
+    downloadThumbnail:
+      "Scarica miniatura",
+
+    downloadingThumbnail:
+      "Download della miniatura...",
+
+    clipDownload: "Download clip",
+
+    clipDescription:
+      "Scarica solo la parte selezionata del video.",
+
+    startTime: "Ora di inizio",
+    endTime: "Ora di fine",
+
+    downloadClip:
+      "Scarica clip",
+
+    cancel: "Annulla",
+
+    speed: "Velocità",
+    eta: "Tempo stimato",
+
+    idle: "INATTIVO",
+    downloading: "DOWNLOAD",
+    completed: "COMPLETATO",
+    error: "ERRORE",
+
+    pleaseEnterUrl:
+      "Inserisci un URL YouTube",
+
+    thumbnailNotAvailable:
+      "Miniatura non disponibile",
+
+    pleaseSelectQuality:
+      "Seleziona la qualità video",
+
+    videoDownloadStarted:
+      "Download video avviato",
+
+    videoDownloadedSuccessfully:
+      "Video scaricato con successo",
+
+    audioDownloadStarted:
+      "Download audio avviato",
+
+    audioDownloadedSuccessfully:
+      "Audio scaricato con successo",
+
+    thumbnailDownloadedSuccessfully:
+      "Miniatura scaricata con successo",
+
+    clipDownloadStarted:
+      "Download clip avviato",
+
+    clipDownloadedSuccessfully:
+      "Clip scaricato con successo",
+
+    videoDownloadCancelled:
+      "Download video annullato",
+
+    audioDownloadCancelled:
+      "Download audio annullato",
+
+    clipDownloadCancelled:
+      "Download clip annullato",
+
+    videoDownloadStuck:
+      "Il download del video sembra bloccato. Controlla la console Spring Boot.",
+
+    audioDownloadStuck:
+      "Il download audio sembra bloccato.",
+
+    clipDownloadStuck:
+      "Il download del clip sembra bloccato.",
+
+    startEndRequired:
+      "Sono richiesti l'ora di inizio e di fine",
+
+    invalidVideoQuality:
+      "Qualità video non valida",
+
+    language: "Lingua",
+  },
+
+
+  // ============================================================
+  // PORTUGUESE
+  // ============================================================
+
+  pt: {
+    languageName: "Português",
+
+    appTitle: "MediaMeld",
+    appSubtitle: "Baixador de vídeos do YouTube",
+
+    pasteUrl:
+      "Cole a URL do YouTube...",
+
+    analyze: "Analisar",
+    analyzing: "Analisando...",
+
+    videoAnalyzed:
+      "Vídeo analisado com sucesso",
+
+    channel: "Canal",
+    unknown: "Desconhecido",
+    duration: "Duração",
+
+    videoQuality: "Qualidade do vídeo",
+
+    downloadVideo:
+      "Baixar vídeo",
+
+    starting: "Iniciando...",
+
+    downloadAudio:
+      "Baixar áudio",
+
+    downloadThumbnail:
+      "Baixar miniatura",
+
+    downloadingThumbnail:
+      "Baixando miniatura...",
+
+    clipDownload: "Baixar clipe",
+
+    clipDescription:
+      "Baixe apenas a parte selecionada do vídeo.",
+
+    startTime: "Hora inicial",
+    endTime: "Hora final",
+
+    downloadClip:
+      "Baixar clipe",
+
+    cancel: "Cancelar",
+
+    speed: "Velocidade",
+    eta: "Tempo estimado",
+
+    idle: "INATIVO",
+    downloading: "BAIXANDO",
+    completed: "CONCLUÍDO",
+    error: "ERRO",
+
+    pleaseEnterUrl:
+      "Digite uma URL do YouTube",
+
+    thumbnailNotAvailable:
+      "Miniatura não disponível",
+
+    pleaseSelectQuality:
+      "Selecione a qualidade do vídeo",
+
+    videoDownloadStarted:
+      "Download do vídeo iniciado",
+
+    videoDownloadedSuccessfully:
+      "Vídeo baixado com sucesso",
+
+    audioDownloadStarted:
+      "Download do áudio iniciado",
+
+    audioDownloadedSuccessfully:
+      "Áudio baixado com sucesso",
+
+    thumbnailDownloadedSuccessfully:
+      "Miniatura baixada com sucesso",
+
+    clipDownloadStarted:
+      "Download do clipe iniciado",
+
+    clipDownloadedSuccessfully:
+      "Clipe baixado com sucesso",
+
+    videoDownloadCancelled:
+      "Download do vídeo cancelado",
+
+    audioDownloadCancelled:
+      "Download do áudio cancelado",
+
+    clipDownloadCancelled:
+      "Download do clipe cancelado",
+
+    videoDownloadStuck:
+      "O download do vídeo parece estar travado. Verifique o console do Spring Boot.",
+
+    audioDownloadStuck:
+      "O download do áudio parece estar travado.",
+
+    clipDownloadStuck:
+      "O download do clipe parece estar travado.",
+
+    startEndRequired:
+      "A hora inicial e final são obrigatórias",
+
+    invalidVideoQuality:
+      "Qualidade de vídeo inválida",
+
+    language: "Idioma",
+  },
+
+
+  // ============================================================
+  // RUSSIAN
+  // ============================================================
+
+  ru: {
+    languageName: "Русский",
+
+    appTitle: "MediaMeld",
+    appSubtitle: "Загрузчик видео с YouTube",
+
+    pasteUrl:
+      "Вставьте URL YouTube...",
+
+    analyze: "Анализировать",
+    analyzing: "Анализ...",
+
+    videoAnalyzed:
+      "Видео успешно проанализировано",
+
+    channel: "Канал",
+    unknown: "Неизвестно",
+    duration: "Продолжительность",
+
+    videoQuality: "Качество видео",
+
+    downloadVideo:
+      "Скачать видео",
+
+    starting: "Запуск...",
+
+    downloadAudio:
+      "Скачать аудио",
+
+    downloadThumbnail:
+      "Скачать миниатюру",
+
+    downloadingThumbnail:
+      "Загрузка миниатюры...",
+
+    clipDownload: "Скачать клип",
+
+    clipDescription:
+      "Скачайте только выбранную часть видео.",
+
+    startTime: "Время начала",
+    endTime: "Время окончания",
+
+    downloadClip:
+      "Скачать клип",
+
+    cancel: "Отмена",
+
+    speed: "Скорость",
+    eta: "Оставшееся время",
+
+    idle: "БЕЗДЕЙСТВИЕ",
+    downloading: "ЗАГРУЗКА",
+    completed: "ЗАВЕРШЕНО",
+    error: "ОШИБКА",
+
+    pleaseEnterUrl:
+      "Введите URL YouTube",
+
+    thumbnailNotAvailable:
+      "Миниатюра недоступна",
+
+    pleaseSelectQuality:
+      "Выберите качество видео",
+
+    videoDownloadStarted:
+      "Загрузка видео началась",
+
+    videoDownloadedSuccessfully:
+      "Видео успешно загружено",
+
+    audioDownloadStarted:
+      "Загрузка аудио началась",
+
+    audioDownloadedSuccessfully:
+      "Аудио успешно загружено",
+
+    thumbnailDownloadedSuccessfully:
+      "Миниатюра успешно загружена",
+
+    clipDownloadStarted:
+      "Загрузка клипа началась",
+
+    clipDownloadedSuccessfully:
+      "Клип успешно загружен",
+
+    videoDownloadCancelled:
+      "Загрузка видео отменена",
+
+    audioDownloadCancelled:
+      "Загрузка аудио отменена",
+
+    clipDownloadCancelled:
+      "Загрузка клипа отменена",
+
+    videoDownloadStuck:
+      "Загрузка видео, кажется, зависла. Проверьте консоль Spring Boot.",
+
+    audioDownloadStuck:
+      "Загрузка аудио, кажется, зависла.",
+
+    clipDownloadStuck:
+      "Загрузка клипа, кажется, зависла.",
+
+    startEndRequired:
+      "Требуются время начала и окончания",
+
+    invalidVideoQuality:
+      "Недопустимое качество видео",
+
+    language: "Язык",
+  },
+
+
+  // ============================================================
+  // JAPANESE
+  // ============================================================
+
+  ja: {
+    languageName: "日本語",
+
+    appTitle: "MediaMeld",
+    appSubtitle: "YouTube動画ダウンローダー",
+
+    pasteUrl:
+      "YouTube URLを貼り付けてください...",
+
+    analyze: "分析",
+    analyzing: "分析中...",
+
+    videoAnalyzed:
+      "動画の分析に成功しました",
+
+    channel: "チャンネル",
+    unknown: "不明",
+    duration: "再生時間",
+
+    videoQuality: "動画品質",
+
+    downloadVideo:
+      "動画をダウンロード",
+
+    starting: "開始中...",
+
+    downloadAudio:
+      "音声をダウンロード",
+
+    downloadThumbnail:
+      "サムネイルをダウンロード",
+
+    downloadingThumbnail:
+      "サムネイルをダウンロード中...",
+
+    clipDownload: "クリップをダウンロード",
+
+    clipDescription:
+      "動画の選択した部分だけをダウンロードします。",
+
+    startTime: "開始時間",
+    endTime: "終了時間",
+
+    downloadClip:
+      "クリップをダウンロード",
+
+    cancel: "キャンセル",
+
+    speed: "速度",
+    eta: "残り時間",
+
+    idle: "待機中",
+    downloading: "ダウンロード中",
+    completed: "完了",
+    error: "エラー",
+
+    pleaseEnterUrl:
+      "YouTube URLを入力してください",
+
+    thumbnailNotAvailable:
+      "サムネイルを利用できません",
+
+    pleaseSelectQuality:
+      "動画品質を選択してください",
+
+    videoDownloadStarted:
+      "動画のダウンロードを開始しました",
+
+    videoDownloadedSuccessfully:
+      "動画を正常にダウンロードしました",
+
+    audioDownloadStarted:
+      "音声のダウンロードを開始しました",
+
+    audioDownloadedSuccessfully:
+      "音声を正常にダウンロードしました",
+
+    thumbnailDownloadedSuccessfully:
+      "サムネイルを正常にダウンロードしました",
+
+    clipDownloadStarted:
+      "クリップのダウンロードを開始しました",
+
+    clipDownloadedSuccessfully:
+      "クリップを正常にダウンロードしました",
+
+    videoDownloadCancelled:
+      "動画のダウンロードをキャンセルしました",
+
+    audioDownloadCancelled:
+      "音声のダウンロードをキャンセルしました",
+
+    clipDownloadCancelled:
+      "クリップのダウンロードをキャンセルしました",
+
+    videoDownloadStuck:
+      "動画のダウンロードが停止しているようです。Spring Bootコンソールを確認してください。",
+
+    audioDownloadStuck:
+      "音声のダウンロードが停止しているようです。",
+
+    clipDownloadStuck:
+      "クリップのダウンロードが停止しているようです。",
+
+    startEndRequired:
+      "開始時間と終了時間が必要です",
+
+    invalidVideoQuality:
+      "無効な動画品質です",
+
+    language: "言語",
+  },
+
+
+  // ============================================================
+  // KOREAN
+  // ============================================================
+
+  ko: {
+    languageName: "한국어",
+
+    appTitle: "MediaMeld",
+    appSubtitle: "YouTube 동영상 다운로더",
+
+    pasteUrl:
+      "YouTube URL을 붙여넣으세요...",
+
+    analyze: "분석",
+    analyzing: "분석 중...",
+
+    videoAnalyzed:
+      "동영상이 성공적으로 분석되었습니다",
+
+    channel: "채널",
+    unknown: "알 수 없음",
+    duration: "재생 시간",
+
+    videoQuality: "동영상 화질",
+
+    downloadVideo:
+      "동영상 다운로드",
+
+    starting: "시작 중...",
+
+    downloadAudio:
+      "오디오 다운로드",
+
+    downloadThumbnail:
+      "썸네일 다운로드",
+
+    downloadingThumbnail:
+      "썸네일 다운로드 중...",
+
+    clipDownload: "클립 다운로드",
+
+    clipDescription:
+      "동영상에서 선택한 부분만 다운로드합니다.",
+
+    startTime: "시작 시간",
+    endTime: "종료 시간",
+
+    downloadClip:
+      "클립 다운로드",
+
+    cancel: "취소",
+
+    speed: "속도",
+    eta: "예상 시간",
+
+    idle: "대기 중",
+    downloading: "다운로드 중",
+    completed: "완료",
+    error: "오류",
+
+    pleaseEnterUrl:
+      "YouTube URL을 입력하세요",
+
+    thumbnailNotAvailable:
+      "썸네일을 사용할 수 없습니다",
+
+    pleaseSelectQuality:
+      "동영상 화질을 선택하세요",
+
+    videoDownloadStarted:
+      "동영상 다운로드가 시작되었습니다",
+
+    videoDownloadedSuccessfully:
+      "동영상이 성공적으로 다운로드되었습니다",
+
+    audioDownloadStarted:
+      "오디오 다운로드가 시작되었습니다",
+
+    audioDownloadedSuccessfully:
+      "오디오가 성공적으로 다운로드되었습니다",
+
+    thumbnailDownloadedSuccessfully:
+      "썸네일이 성공적으로 다운로드되었습니다",
+
+    clipDownloadStarted:
+      "클립 다운로드가 시작되었습니다",
+
+    clipDownloadedSuccessfully:
+      "클립이 성공적으로 다운로드되었습니다",
+
+    videoDownloadCancelled:
+      "동영상 다운로드가 취소되었습니다",
+
+    audioDownloadCancelled:
+      "오디오 다운로드가 취소되었습니다",
+
+    clipDownloadCancelled:
+      "클립 다운로드가 취소되었습니다",
+
+    videoDownloadStuck:
+      "동영상 다운로드가 중단된 것 같습니다. Spring Boot 콘솔을 확인하세요.",
+
+    audioDownloadStuck:
+      "오디오 다운로드가 중단된 것 같습니다.",
+
+    clipDownloadStuck:
+      "클립 다운로드가 중단된 것 같습니다.",
+
+    startEndRequired:
+      "시작 시간과 종료 시간이 필요합니다",
+
+    invalidVideoQuality:
+      "잘못된 동영상 화질입니다",
+
+    language: "언어",
+  },
+
+
+  // ============================================================
+  // CHINESE
+  // ============================================================
+
+  zh: {
+    languageName: "中文",
+
+    appTitle: "MediaMeld",
+    appSubtitle: "YouTube 视频下载器",
+
+    pasteUrl:
+      "粘贴 YouTube URL...",
+
+    analyze: "分析",
+    analyzing: "正在分析...",
+
+    videoAnalyzed:
+      "视频分析成功",
+
+    channel: "频道",
+    unknown: "未知",
+    duration: "时长",
+
+    videoQuality: "视频质量",
+
+    downloadVideo:
+      "下载视频",
+
+    starting: "正在开始...",
+
+    downloadAudio:
+      "下载音频",
+
+    downloadThumbnail:
+      "下载缩略图",
+
+    downloadingThumbnail:
+      "正在下载缩略图...",
+
+    clipDownload: "下载片段",
+
+    clipDescription:
+      "仅下载视频中选定的部分。",
+
+    startTime: "开始时间",
+    endTime: "结束时间",
+
+    downloadClip:
+      "下载片段",
+
+    cancel: "取消",
+
+    speed: "速度",
+    eta: "预计时间",
+
+    idle: "空闲",
+    downloading: "下载中",
+    completed: "已完成",
+    error: "错误",
+
+    pleaseEnterUrl:
+      "请输入 YouTube URL",
+
+    thumbnailNotAvailable:
+      "缩略图不可用",
+
+    pleaseSelectQuality:
+      "请选择视频质量",
+
+    videoDownloadStarted:
+      "视频下载已开始",
+
+    videoDownloadedSuccessfully:
+      "视频下载成功",
+
+    audioDownloadStarted:
+      "音频下载已开始",
+
+    audioDownloadedSuccessfully:
+      "音频下载成功",
+
+    thumbnailDownloadedSuccessfully:
+      "缩略图下载成功",
+
+    clipDownloadStarted:
+      "片段下载已开始",
+
+    clipDownloadedSuccessfully:
+      "片段下载成功",
+
+    videoDownloadCancelled:
+      "视频下载已取消",
+
+    audioDownloadCancelled:
+      "音频下载已取消",
+
+    clipDownloadCancelled:
+      "片段下载已取消",
+
+    videoDownloadStuck:
+      "视频下载似乎卡住了。请检查 Spring Boot 控制台。",
+
+    audioDownloadStuck:
+      "音频下载似乎卡住了。",
+
+    clipDownloadStuck:
+      "片段下载似乎卡住了。",
+
+    startEndRequired:
+      "需要开始时间和结束时间",
+
+    invalidVideoQuality:
+      "无效的视频质量",
+
+    language: "语言",
+  },
+
+
+  // ============================================================
+  // ARABIC
+  // ============================================================
+
+  ar: {
+    languageName: "العربية",
+
+    appTitle: "MediaMeld",
+    appSubtitle: "منزّل فيديوهات YouTube",
+
+    pasteUrl:
+      "الصق رابط YouTube...",
+
+    analyze: "تحليل",
+    analyzing: "جارٍ التحليل...",
+
+    videoAnalyzed:
+      "تم تحليل الفيديو بنجاح",
+
+    channel: "القناة",
+    unknown: "غير معروف",
+    duration: "المدة",
+
+    videoQuality: "جودة الفيديو",
+
+    downloadVideo:
+      "تنزيل الفيديو",
+
+    starting: "جارٍ البدء...",
+
+    downloadAudio:
+      "تنزيل الصوت",
+
+    downloadThumbnail:
+      "تنزيل الصورة المصغرة",
+
+    downloadingThumbnail:
+      "جارٍ تنزيل الصورة المصغرة...",
+
+    clipDownload: "تنزيل المقطع",
+
+    clipDescription:
+      "تنزيل الجزء المحدد فقط من الفيديو.",
+
+    startTime: "وقت البداية",
+    endTime: "وقت النهاية",
+
+    downloadClip:
+      "تنزيل المقطع",
+
+    cancel: "إلغاء",
+
+    speed: "السرعة",
+    eta: "الوقت المتوقع",
+
+    idle: "خامل",
+    downloading: "جارٍ التنزيل",
+    completed: "مكتمل",
+    error: "خطأ",
+
+    pleaseEnterUrl:
+      "يرجى إدخال رابط YouTube",
+
+    thumbnailNotAvailable:
+      "الصورة المصغرة غير متاحة",
+
+    pleaseSelectQuality:
+      "يرجى اختيار جودة الفيديو",
+
+    videoDownloadStarted:
+      "بدأ تنزيل الفيديو",
+
+    videoDownloadedSuccessfully:
+      "تم تنزيل الفيديو بنجاح",
+
+    audioDownloadStarted:
+      "بدأ تنزيل الصوت",
+
+    audioDownloadedSuccessfully:
+      "تم تنزيل الصوت بنجاح",
+
+    thumbnailDownloadedSuccessfully:
+      "تم تنزيل الصورة المصغرة بنجاح",
+
+    clipDownloadStarted:
+      "بدأ تنزيل المقطع",
+
+    clipDownloadedSuccessfully:
+      "تم تنزيل المقطع بنجاح",
+
+    videoDownloadCancelled:
+      "تم إلغاء تنزيل الفيديو",
+
+    audioDownloadCancelled:
+      "تم إلغاء تنزيل الصوت",
+
+    clipDownloadCancelled:
+      "تم إلغاء تنزيل المقطع",
+
+    videoDownloadStuck:
+      "يبدو أن تنزيل الفيديو متوقف. تحقق من وحدة تحكم Spring Boot.",
+
+    audioDownloadStuck:
+      "يبدو أن تنزيل الصوت متوقف.",
+
+    clipDownloadStuck:
+      "يبدو أن تنزيل المقطع متوقف.",
+
+    startEndRequired:
+      "وقت البداية والنهاية مطلوبان",
+
+    invalidVideoQuality:
+      "جودة فيديو غير صالحة",
+
+    language: "اللغة",
+  },
+
+
+  // ============================================================
+  // TURKISH
+  // ============================================================
+
+  tr: {
+    languageName: "Türkçe",
+
+    appTitle: "MediaMeld",
+    appSubtitle: "YouTube Video İndirici",
+
+    pasteUrl:
+      "YouTube URL'sini yapıştırın...",
+
+    analyze: "Analiz Et",
+    analyzing: "Analiz ediliyor...",
+
+    videoAnalyzed:
+      "Video başarıyla analiz edildi",
+
+    channel: "Kanal",
+    unknown: "Bilinmiyor",
+    duration: "Süre",
+
+    videoQuality: "Video Kalitesi",
+
+    downloadVideo:
+      "Videoyu İndir",
+
+    starting: "Başlatılıyor...",
+
+    downloadAudio:
+      "Sesi İndir",
+
+    downloadThumbnail:
+      "Küçük Resmi İndir",
+
+    downloadingThumbnail:
+      "Küçük resim indiriliyor...",
+
+    clipDownload: "Klip İndir",
+
+    clipDescription:
+      "Videonun yalnızca seçilen bölümünü indirin.",
+
+    startTime: "Başlangıç Zamanı",
+    endTime: "Bitiş Zamanı",
+
+    downloadClip:
+      "Klibi İndir",
+
+    cancel: "İptal",
+
+    speed: "Hız",
+    eta: "Tahmini Süre",
+
+    idle: "BOŞTA",
+    downloading: "İNDİRİLİYOR",
+    completed: "TAMAMLANDI",
+    error: "HATA",
+
+    pleaseEnterUrl:
+      "Lütfen bir YouTube URL'si girin",
+
+    thumbnailNotAvailable:
+      "Küçük resim mevcut değil",
+
+    pleaseSelectQuality:
+      "Lütfen video kalitesini seçin",
+
+    videoDownloadStarted:
+      "Video indirme başladı",
+
+    videoDownloadedSuccessfully:
+      "Video başarıyla indirildi",
+
+    audioDownloadStarted:
+      "Ses indirme başladı",
+
+    audioDownloadedSuccessfully:
+      "Ses başarıyla indirildi",
+
+    thumbnailDownloadedSuccessfully:
+      "Küçük resim başarıyla indirildi",
+
+    clipDownloadStarted:
+      "Klip indirme başladı",
+
+    clipDownloadedSuccessfully:
+      "Klip başarıyla indirildi",
+
+    videoDownloadCancelled:
+      "Video indirme iptal edildi",
+
+    audioDownloadCancelled:
+      "Ses indirme iptal edildi",
+
+    clipDownloadCancelled:
+      "Klip indirme iptal edildi",
+
+    videoDownloadStuck:
+      "Video indirme işlemi takılmış görünüyor. Spring Boot konsolunu kontrol edin.",
+
+    audioDownloadStuck:
+      "Ses indirme işlemi takılmış görünüyor.",
+
+    clipDownloadStuck:
+      "Klip indirme işlemi takılmış görünüyor.",
+
+    startEndRequired:
+      "Başlangıç ve bitiş zamanı gereklidir",
+
+    invalidVideoQuality:
+      "Geçersiz video kalitesi",
+
+    language: "Dil",
+  },
+
+
+  // ============================================================
+  // INDONESIAN
+  // ============================================================
+
+  id: {
+    languageName: "Bahasa Indonesia",
+
+    appTitle: "MediaMeld",
+    appSubtitle: "Pengunduh Video YouTube",
+
+    pasteUrl:
+      "Tempel URL YouTube...",
+
+    analyze: "Analisis",
+    analyzing: "Menganalisis...",
+
+    videoAnalyzed:
+      "Video berhasil dianalisis",
+
+    channel: "Saluran",
+    unknown: "Tidak diketahui",
+    duration: "Durasi",
+
+    videoQuality: "Kualitas Video",
+
+    downloadVideo:
+      "Unduh Video",
+
+    starting: "Memulai...",
+
+    downloadAudio:
+      "Unduh Audio",
+
+    downloadThumbnail:
+      "Unduh Thumbnail",
+
+    downloadingThumbnail:
+      "Mengunduh thumbnail...",
+
+    clipDownload: "Unduh Klip",
+
+    clipDescription:
+      "Unduh hanya bagian video yang dipilih.",
+
+    startTime: "Waktu Mulai",
+    endTime: "Waktu Selesai",
+
+    downloadClip:
+      "Unduh Klip",
+
+    cancel: "Batal",
+
+    speed: "Kecepatan",
+    eta: "Perkiraan Waktu",
+
+    idle: "IDLE",
+    downloading: "MENGUNDUH",
+    completed: "SELESAI",
+    error: "ERROR",
+
+    pleaseEnterUrl:
+      "Silakan masukkan URL YouTube",
+
+    thumbnailNotAvailable:
+      "Thumbnail tidak tersedia",
+
+    pleaseSelectQuality:
+      "Silakan pilih kualitas video",
+
+    videoDownloadStarted:
+      "Pengunduhan video dimulai",
+
+    videoDownloadedSuccessfully:
+      "Video berhasil diunduh",
+
+    audioDownloadStarted:
+      "Pengunduhan audio dimulai",
+
+    audioDownloadedSuccessfully:
+      "Audio berhasil diunduh",
+
+    thumbnailDownloadedSuccessfully:
+      "Thumbnail berhasil diunduh",
+
+    clipDownloadStarted:
+      "Pengunduhan klip dimulai",
+
+    clipDownloadedSuccessfully:
+      "Klip berhasil diunduh",
+
+    videoDownloadCancelled:
+      "Pengunduhan video dibatalkan",
+
+    audioDownloadCancelled:
+      "Pengunduhan audio dibatalkan",
+
+    clipDownloadCancelled:
+      "Pengunduhan klip dibatalkan",
+
+    videoDownloadStuck:
+      "Pengunduhan video tampaknya macet. Periksa konsol Spring Boot.",
+
+    audioDownloadStuck:
+      "Pengunduhan audio tampaknya macet.",
+
+    clipDownloadStuck:
+      "Pengunduhan klip tampaknya macet.",
+
+    startEndRequired:
+      "Waktu mulai dan selesai diperlukan",
+
+    invalidVideoQuality:
+      "Kualitas video tidak valid",
+
+    language: "Bahasa",
+  },
+
+
+  // ============================================================
+  // VIETNAMESE
+  // ============================================================
+
+  vi: {
+    languageName: "Tiếng Việt",
+
+    appTitle: "MediaMeld",
+    appSubtitle: "Trình tải video YouTube",
+
+    pasteUrl:
+      "Dán URL YouTube...",
+
+    analyze: "Phân tích",
+    analyzing: "Đang phân tích...",
+
+    videoAnalyzed:
+      "Đã phân tích video thành công",
+
+    channel: "Kênh",
+    unknown: "Không xác định",
+    duration: "Thời lượng",
+
+    videoQuality: "Chất lượng video",
+
+    downloadVideo:
+      "Tải video",
+
+    starting: "Đang bắt đầu...",
+
+    downloadAudio:
+      "Tải âm thanh",
+
+    downloadThumbnail:
+      "Tải hình thu nhỏ",
+
+    downloadingThumbnail:
+      "Đang tải hình thu nhỏ...",
+
+    clipDownload: "Tải clip",
+
+    clipDescription:
+      "Chỉ tải phần video đã chọn.",
+
+    startTime: "Thời gian bắt đầu",
+    endTime: "Thời gian kết thúc",
+
+    downloadClip:
+      "Tải clip",
+
+    cancel: "Hủy",
+
+    speed: "Tốc độ",
+    eta: "Thời gian dự kiến",
+
+    idle: "CHỜ",
+    downloading: "ĐANG TẢI",
+    completed: "HOÀN TẤT",
+    error: "LỖI",
+
+    pleaseEnterUrl:
+      "Vui lòng nhập URL YouTube",
+
+    thumbnailNotAvailable:
+      "Không có hình thu nhỏ",
+
+    pleaseSelectQuality:
+      "Vui lòng chọn chất lượng video",
+
+    videoDownloadStarted:
+      "Đã bắt đầu tải video",
+
+    videoDownloadedSuccessfully:
+      "Video đã được tải thành công",
+
+    audioDownloadStarted:
+      "Đã bắt đầu tải âm thanh",
+
+    audioDownloadedSuccessfully:
+      "Âm thanh đã được tải thành công",
+
+    thumbnailDownloadedSuccessfully:
+      "Hình thu nhỏ đã được tải thành công",
+
+    clipDownloadStarted:
+      "Đã bắt đầu tải clip",
+
+    clipDownloadedSuccessfully:
+      "Clip đã được tải thành công",
+
+    videoDownloadCancelled:
+      "Đã hủy tải video",
+
+    audioDownloadCancelled:
+      "Đã hủy tải âm thanh",
+
+    clipDownloadCancelled:
+      "Đã hủy tải clip",
+
+    videoDownloadStuck:
+      "Tải video có vẻ bị treo. Vui lòng kiểm tra console Spring Boot.",
+
+    audioDownloadStuck:
+      "Tải âm thanh có vẻ bị treo.",
+
+    clipDownloadStuck:
+      "Tải clip có vẻ bị treo.",
+
+    startEndRequired:
+      "Cần có thời gian bắt đầu và kết thúc",
+
+    invalidVideoQuality:
+      "Chất lượng video không hợp lệ",
+
+    language: "Ngôn ngữ",
+  },
+};
+
+export default translations;
+

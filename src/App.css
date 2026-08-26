@@ -1,13 +1,124 @@
+/* ============================================================
+   THEME VARIABLES
+   ============================================================ */
+
+:root {
+  --app-bg: #0f0f0f;
+  --text-primary: #ffffff;
+  --text-secondary: #888888;
+
+  --card-bg: #181818;
+  --card-border: #303030;
+
+  --input-bg: #181818;
+  --input-focus-bg: #1c1c1c;
+
+  --secondary-bg: #2b2b2b;
+  --secondary-hover: #353535;
+
+  --select-bg: #222222;
+
+  --progress-bg: #303030;
+  --progress-section-bg: #202020;
+
+  --message-bg: #181818;
+
+  --scrollbar-track: #111111;
+  --scrollbar-thumb: #3a3a3a;
+  --scrollbar-hover: #505050;
+
+  --shadow: rgba(0, 0, 0, 0.35);
+}
+
 
 /* ============================================================
-   GLOBAL APP
+   LIGHT THEME
+   ============================================================ */
+
+html[data-theme="light"] {
+  --app-bg: #f5f5f5;
+  --text-primary: #171717;
+  --text-secondary: #666666;
+
+  --card-bg: #ffffff;
+  --card-border: #dddddd;
+
+  --input-bg: #ffffff;
+  --input-focus-bg: #ffffff;
+
+  --secondary-bg: #f0f0f0;
+  --secondary-hover: #e5e5e5;
+
+  --select-bg: #ffffff;
+
+  --progress-bg: #dddddd;
+  --progress-section-bg: #f7f7f7;
+
+  --message-bg: #ffffff;
+
+  --scrollbar-track: #eeeeee;
+  --scrollbar-thumb: #bbbbbb;
+  --scrollbar-hover: #999999;
+
+  --shadow: rgba(0, 0, 0, 0.12);
+}
+
+
+/* ============================================================
+   GLOBAL
+   ============================================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--app-bg);
+  transition: background 0.25s ease;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  background: var(--app-bg);
+  color: var(--text-primary);
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+
+/* ============================================================
+   APP
    ============================================================ */
 
 .app {
   min-height: 100vh;
+
   padding: 50px 20px;
-  background: #0f0f0f;
-  color: #ffffff;
+
+  background: var(--app-bg);
+  color: var(--text-primary);
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
 }
 
 .container {
@@ -34,35 +145,107 @@
 
 .header p {
   margin-top: 10px;
+
   opacity: 0.65;
+
   font-size: 17px;
 }
 
 
 /* ============================================================
-   SEARCH SECTION
+   HEADER SETTINGS
+   ============================================================ */
+
+.header-settings {
+  display: flex;
+
+  justify-content: center;
+  align-items: flex-end;
+
+  gap: 15px;
+
+  margin-top: 22px;
+}
+
+
+/* ============================================================
+   LANGUAGE + THEME
+   ============================================================ */
+
+.language-selector,
+.theme-selector {
+  display: flex;
+
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 7px;
+}
+
+.language-selector label,
+.theme-selector label {
+  font-size: 13px;
+  font-weight: 600;
+
+  opacity: 0.75;
+}
+
+.language-selector select,
+.theme-selector select {
+  min-width: 145px;
+
+  padding: 10px 12px;
+
+  border-radius: 10px;
+
+  border: 1px solid var(--card-border);
+
+  background: var(--select-bg);
+
+  color: var(--text-primary);
+
+  font-size: 14px;
+
+  outline: none;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.language-selector select:focus,
+.theme-selector select:focus {
+  border-color: #777;
+}
+
+
+/* ============================================================
+   SEARCH
    ============================================================ */
 
 .search-section {
   display: flex;
+
   gap: 12px;
+
   align-items: stretch;
 }
 
 .url-input {
   flex: 1;
-
   min-width: 0;
 
   padding: 16px 18px;
 
   border-radius: 12px;
 
-  border: 1px solid #444;
+  border: 1px solid var(--card-border);
 
-  background: #181818;
-
-  color: white;
+  background: var(--input-bg);
+  color: var(--text-primary);
 
   font-size: 16px;
 
@@ -70,16 +253,18 @@
 
   transition:
     border-color 0.2s,
-    background 0.2s;
+    background 0.25s ease,
+    color 0.25s ease;
 }
 
 .url-input::placeholder {
-  color: #888;
+  color: var(--text-secondary);
 }
 
 .url-input:focus {
   border-color: #777;
-  background: #1c1c1c;
+
+  background: var(--input-focus-bg);
 }
 
 .url-input:disabled {
@@ -98,22 +283,21 @@
   padding: 0 20px;
 
   border: none;
-
   border-radius: 12px;
 
-  background: #ffffff;
-
-  color: #111;
+  background: var(--text-primary);
+  color: var(--app-bg);
 
   font-size: 15px;
-
   font-weight: 700;
 
   cursor: pointer;
 
   transition:
     transform 0.15s,
-    opacity 0.15s;
+    opacity 0.15s,
+    background 0.25s ease,
+    color 0.25s ease;
 }
 
 .analyze-btn:hover:not(:disabled) {
@@ -147,13 +331,17 @@
 
   border-radius: 20px;
 
-  background: #181818;
+  background: var(--card-bg);
 
-  border: 1px solid #303030;
+  border: 1px solid var(--card-border);
 
   box-shadow:
-    0 20px 50px
-    rgba(0, 0, 0, 0.35);
+    0 20px 50px var(--shadow);
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 
@@ -176,7 +364,7 @@
 
   border-radius: 14px;
 
-  background: #111;
+  background: var(--app-bg);
 }
 
 
@@ -199,7 +387,7 @@
 }
 
 .channel {
-  margin: 0 0 25px;
+  margin: 0 0 10px;
 
   opacity: 0.6;
 
@@ -208,7 +396,7 @@
 
 
 /* ============================================================
-   QUALITY SECTION
+   QUALITY
    ============================================================ */
 
 .quality-section {
@@ -218,6 +406,7 @@
 
   gap: 8px;
 
+  margin-top: 25px;
   margin-bottom: 18px;
 }
 
@@ -236,19 +425,17 @@
 
   border-radius: 10px;
 
-  border: 1px solid #444;
+  border: 1px solid var(--card-border);
 
-  background: #222;
+  background: var(--select-bg);
 
-  color: white;
+  color: var(--text-primary);
 
   font-size: 15px;
 
   outline: none;
 
   cursor: pointer;
-
-  appearance: auto;
 }
 
 .quality-section select:focus {
@@ -257,7 +444,6 @@
 
 .quality-section select:disabled {
   opacity: 0.6;
-
   cursor: not-allowed;
 }
 
@@ -286,7 +472,9 @@
   transition:
     transform 0.15s,
     opacity 0.15s,
-    background 0.15s;
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
 }
 
 .download-btn:hover:not(:disabled) {
@@ -299,7 +487,6 @@
 
 .download-btn:disabled {
   opacity: 0.5;
-
   cursor: not-allowed;
 }
 
@@ -309,13 +496,12 @@
    ============================================================ */
 
 .video-btn {
-  background: #ffffff;
-
-  color: #111;
+  background: var(--text-primary);
+  color: var(--app-bg);
 }
 
 .video-btn:hover:not(:disabled) {
-  background: #eeeeee;
+  opacity: 0.9;
 }
 
 
@@ -324,15 +510,15 @@
    ============================================================ */
 
 .audio-btn {
-  background: #2b2b2b;
+  background: var(--secondary-bg);
 
-  color: white;
+  color: var(--text-primary);
 
-  border: 1px solid #444;
+  border: 1px solid var(--card-border);
 }
 
 .audio-btn:hover:not(:disabled) {
-  background: #353535;
+  background: var(--secondary-hover);
 }
 
 
@@ -341,15 +527,17 @@
    ============================================================ */
 
 .thumbnail-btn {
-  background: #2b2b2b;
+  margin-top: 12px;
 
-  color: white;
+  background: var(--secondary-bg);
 
-  border: 1px solid #444;
+  color: var(--text-primary);
+
+  border: 1px solid var(--card-border);
 }
 
 .thumbnail-btn:hover:not(:disabled) {
-  background: #353535;
+  background: var(--secondary-hover);
 }
 
 
@@ -362,7 +550,7 @@
 
   padding-top: 22px;
 
-  border-top: 1px solid #303030;
+  border-top: 1px solid var(--card-border);
 }
 
 .clip-title {
@@ -423,11 +611,11 @@
 
   border-radius: 10px;
 
-  border: 1px solid #444;
+  border: 1px solid var(--card-border);
 
-  background: #222;
+  background: var(--select-bg);
 
-  color: white;
+  color: var(--text-primary);
 
   font-size: 15px;
 
@@ -435,18 +623,17 @@
 }
 
 .clip-time-input::placeholder {
-  color: #777;
+  color: var(--text-secondary);
 }
 
 .clip-time-input:focus {
   border-color: #777;
 
-  background: #272727;
+  background: var(--input-focus-bg);
 }
 
 .clip-time-input:disabled {
   opacity: 0.6;
-
   cursor: not-allowed;
 }
 
@@ -456,15 +643,15 @@
    ============================================================ */
 
 .clip-btn {
-  background: #2b2b2b;
+  background: var(--secondary-bg);
 
-  color: white;
+  color: var(--text-primary);
 
-  border: 1px solid #444;
+  border: 1px solid var(--card-border);
 }
 
 .clip-btn:hover:not(:disabled) {
-  background: #353535;
+  background: var(--secondary-hover);
 }
 
 
@@ -475,7 +662,7 @@
 .cancel-btn {
   width: 100%;
 
-  padding: 14px;
+  padding: 12px;
 
   margin-top: 10px;
 
@@ -483,11 +670,11 @@
 
   border-radius: 10px;
 
-  background: #2b2b2b;
+  background: var(--secondary-bg);
 
-  color: #ffb0b0;
+  color: #d95353;
 
-  font-size: 15px;
+  font-size: 14px;
 
   font-weight: 700;
 
@@ -517,15 +704,19 @@
    ============================================================ */
 
 .progress-section {
-  margin-top: 25px;
+  margin-top: 20px;
 
   padding: 15px;
 
   border-radius: 12px;
 
-  background: #202020;
+  background: var(--progress-section-bg);
 
-  border: 1px solid #303030;
+  border: 1px solid var(--card-border);
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease;
 }
 
 .progress-header {
@@ -547,7 +738,7 @@
 
   height: 10px;
 
-  background: #303030;
+  background: var(--progress-bg);
 
   border-radius: 20px;
 
@@ -557,7 +748,7 @@
 .progress-fill {
   height: 100%;
 
-  background: #ffffff;
+  background: var(--text-primary);
 
   border-radius: 20px;
 
@@ -571,6 +762,20 @@
   font-size: 13px;
 
   opacity: 0.6;
+}
+
+.download-stats {
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 10px;
+
+  margin-top: 8px;
+
+  font-size: 13px;
+
+  opacity: 0.65;
 }
 
 
@@ -587,9 +792,9 @@
 
   border-radius: 10px;
 
-  background: #181818;
+  background: var(--message-bg);
 
-  border: 1px solid #303030;
+  border: 1px solid var(--card-border);
 
   font-size: 14px;
 
@@ -606,7 +811,7 @@
 .message-success {
   border-color: #315c3b;
 
-  color: #b8e8c2;
+  color: #4f9d62;
 }
 
 
@@ -617,9 +822,9 @@
 .message-error {
   border-color: #6b3333;
 
-  color: #ffb0b0;
+  color: #d95353;
 
-  background: #211616;
+  background: var(--message-bg);
 }
 
 
@@ -632,26 +837,25 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #111;
+  background: var(--scrollbar-track);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #3a3a3a;
+  background: var(--scrollbar-thumb);
 
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #505050;
+  background: var(--scrollbar-hover);
 }
 
 
 /* ============================================================
-   RESPONSIVE — TABLET
+   TABLET
    ============================================================ */
 
 @media (max-width: 850px) {
-
   .video-card {
     grid-template-columns: 330px 1fr;
 
@@ -667,11 +871,10 @@
 
 
 /* ============================================================
-   RESPONSIVE — MOBILE
+   MOBILE
    ============================================================ */
 
 @media (max-width: 750px) {
-
   .app {
     padding: 30px 15px;
   }
@@ -690,6 +893,26 @@
 
   .header p {
     font-size: 15px;
+  }
+
+  .header-settings {
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 12px;
+  }
+
+  .language-selector,
+  .theme-selector {
+    width: 100%;
+
+    max-width: 250px;
+  }
+
+  .language-selector select,
+  .theme-selector select {
+    width: 100%;
   }
 
   .search-section {
@@ -727,6 +950,12 @@
   .clip-time-row {
     grid-template-columns: 1fr;
   }
+
+  .download-stats {
+    flex-direction: column;
+
+    gap: 4px;
+  }
 }
 
 
@@ -735,7 +964,6 @@
    ============================================================ */
 
 @media (max-width: 450px) {
-
   .app {
     padding: 20px 12px;
   }
