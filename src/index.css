@@ -1,3 +1,6 @@
+/* ============================================================
+   GLOBAL RESET & ENVIRONMENT
+============================================================ */
 * {
   box-sizing: border-box;
 }
@@ -6,30 +9,58 @@ html,
 body,
 #root {
   margin: 0;
-
   width: 100%;
-
   min-height: 100%;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family:
-    Inter,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
-
-  background: #0d0d0d;
-
-  color: white;
-
+  background: #0b0d10;
+  color: #f1f3f5;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 button,
 input,
-select {
+select,
+textarea {
   font-family: inherit;
+}
+
+button,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  max-width: 100%;
+}
+
+::selection {
+  background: rgba(79, 140, 255, 0.25);
+}
+
+/* CUSTOM SCROLLBAR */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b0d10;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #303640;
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3b434e;
 }
